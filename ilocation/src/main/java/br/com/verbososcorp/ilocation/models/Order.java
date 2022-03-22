@@ -45,5 +45,51 @@ public class Order {
 	private DeliveryPerson deliveryPerson;
 
 
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public List<GeoLocation> getGeoLocationGroup() {
+		return geoLocationGroup;
+	}
+
+	public void setGeoLocationGroup(List<GeoLocation> geoLocationGroup) {
+		this.geoLocationGroup = geoLocationGroup;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public DeliveryPerson getDeliveryPerson() {
+		return deliveryPerson;
+	}
+
+	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
+		this.deliveryPerson = deliveryPerson;
+	}
 }
