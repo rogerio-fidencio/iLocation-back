@@ -2,7 +2,6 @@ package br.com.verbososcorp.ilocation.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,6 +32,6 @@ public class DeliveryPerson {
 
     @OneToMany(mappedBy = "deliveryPerson")
     @JsonIgnoreProperties("deliveryPerson")
-    private List<String> OrderList;
+    private List<Order> orderGroup;
 
 }
