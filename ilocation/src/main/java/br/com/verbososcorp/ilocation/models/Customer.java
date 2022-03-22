@@ -40,77 +40,77 @@ public class Customer {
     @JsonIgnoreProperties("customer")
     List<Order> orderGroup;
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+      return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Integer id) {
+      this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+      return name;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public void setName(String name) {
+      this.name = name;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getCpf() {
+      return cpf;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setCpf(String cpf) {
+      this.cpf = cpf;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+      return email;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setEmail(String email) {
+      this.email = email;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() {
+      return phone;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public void setPhone(String phone) {
+      this.phone = phone;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public String getCep() {
+      return cep;
+    }
 
-	public String getNumRes() {
-		return numRes;
-	}
+    public void setCep(String cep) {
+      this.cep = cep;
+    }
 
-	public void setNumRes(String numRes) {
-		this.numRes = numRes;
-	}
+    public String getNumRes() {
+      return numRes;
+    }
 
-	public String getCompl() {
-		return compl;
-	}
+    public void setNumRes(String numRes) {
+      this.numRes = numRes;
+    }
 
-	public void setCompl(String compl) {
-		this.compl = compl;
-	}
+    public String getCompl() {
+      return compl;
+    }
 
-	public List<Order> getOrderGroup() {
-		return orderGroup;
-	}
+    public void setCompl(String compl) {
+      this.compl = compl;
+    }
 
-	public void setOrderGroup(List<Order> orderGroup) {
-		this.orderGroup = orderGroup;
-	}
-    
-    
+    public List<Order> getOrderGroup() {
+      return orderGroup;
+    }
+
+    public void setOrderGroup(List<Order> orderGroup) {
+      this.orderGroup = orderGroup;
+    }
+
 }

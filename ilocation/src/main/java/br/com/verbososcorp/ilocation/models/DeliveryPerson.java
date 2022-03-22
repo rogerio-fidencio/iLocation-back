@@ -34,6 +34,8 @@ public class DeliveryPerson {
     @JsonIgnoreProperties("deliveryPerson")
     private List<Order> orderGroup;
 
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -89,7 +91,6 @@ public class DeliveryPerson {
 	public void setOrderGroup(List<Order> orderGroup) {
 		this.orderGroup = orderGroup;
 	}
-    
-    
+
 
 }

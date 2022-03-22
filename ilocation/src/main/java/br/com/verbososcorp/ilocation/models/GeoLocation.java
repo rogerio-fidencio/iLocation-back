@@ -36,6 +36,7 @@ public class GeoLocation {
 	@JsonIgnoreProperties("geoLocationGroup")
 	private Order order;
 
+
 	public Integer getId() {
 		return id;
 	}
@@ -75,6 +76,4 @@ public class GeoLocation {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
 }

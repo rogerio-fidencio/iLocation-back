@@ -32,7 +32,7 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order")
 	@JsonIgnoreProperties("order")
-	List<GeoLocation> geoLocationGroup;
+	private List<GeoLocation> geoLocationGroup;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -43,6 +43,7 @@ public class Order {
 	@JoinColumn(name = "delivery_person_id")
 	@JsonIgnoreProperties("orderGroup")
 	private DeliveryPerson deliveryPerson;
+
 
 	public Integer getId() {
 		return id;
@@ -91,6 +92,4 @@ public class Order {
 	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
 		this.deliveryPerson = deliveryPerson;
 	}
-	
-	
 }
