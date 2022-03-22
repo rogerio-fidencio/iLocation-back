@@ -32,7 +32,7 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order")
 	@JsonIgnoreProperties("order")
-	List<GeoLocation> geoLocationGroup;
+	private List<GeoLocation> geoLocationGroup;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -43,4 +43,7 @@ public class Order {
 	@JoinColumn(name = "delivery_person_id")
 	@JsonIgnoreProperties("orderGroup")
 	private DeliveryPerson deliveryPerson;
+
+
+
 }

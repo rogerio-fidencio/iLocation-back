@@ -35,4 +35,6 @@ public class GeoLocation {
 	@JoinColumn(name = "order_id")
 	@JsonIgnoreProperties("geoLocationGroup")
 	private Order order;
+
+
 }
