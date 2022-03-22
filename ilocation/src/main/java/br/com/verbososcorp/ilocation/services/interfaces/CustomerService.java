@@ -1,4 +1,4 @@
 package br.com.verbososcorp.ilocation.services.interfaces;
 
-public interface CostumerService {
+public interface CustomerService {
 }
