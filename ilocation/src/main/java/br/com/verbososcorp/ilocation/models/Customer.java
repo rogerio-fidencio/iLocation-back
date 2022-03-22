@@ -39,4 +39,78 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
     List<Order> orderGroup;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getNumRes() {
+		return numRes;
+	}
+
+	public void setNumRes(String numRes) {
+		this.numRes = numRes;
+	}
+
+	public String getCompl() {
+		return compl;
+	}
+
+	public void setCompl(String compl) {
+		this.compl = compl;
+	}
+
+	public List<Order> getOrderGroup() {
+		return orderGroup;
+	}
+
+	public void setOrderGroup(List<Order> orderGroup) {
+		this.orderGroup = orderGroup;
+	}
+    
+    
 }
