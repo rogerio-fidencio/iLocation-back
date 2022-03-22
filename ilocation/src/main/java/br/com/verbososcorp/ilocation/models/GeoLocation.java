@@ -1,6 +1,9 @@
 package br.com.verbososcorp.ilocation.models;
 
+
+
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +26,7 @@ public class GeoLocation {
 	private Integer id;
 	
 	@Column(name = "timastamp", nullable = false)
-	private Timestamp timestamp;
+	private LocalDate timestamp;
 	
 	@Column(name = "latitude", nullable = false)
 	private String latitude;
@@ -33,8 +36,8 @@ public class GeoLocation {
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	@JsonIgnoreProperties("geoLocationGroup")
-	private Order order;
+	@JsonIgnoreProperties("orders")
+	private Orders orders;
 
 
 	public Integer getId() {
@@ -45,11 +48,11 @@ public class GeoLocation {
 		this.id = id;
 	}
 
-	public Timestamp getTimestamp() {
+	public LocalDate getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(LocalDate timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -69,11 +72,11 @@ public class GeoLocation {
 		this.longitude = longitude;
 	}
 
-	public Order getOrder() {
-		return order;
+	public Orders getOrder() {
+		return orders;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrder(Orders orders) {
+		this.orders = orders;
 	}
 }

@@ -38,7 +38,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
-    List<Order> orderGroup;
+    List<Orders> orderGroup;
 
 
     public Integer getId() {
@@ -105,11 +105,11 @@ public class Customer {
       this.compl = compl;
     }
 
-    public List<Order> getOrderGroup() {
+    public List<Orders> getOrderGroup() {
       return orderGroup;
     }
 
-    public void setOrderGroup(List<Order> orderGroup) {
+    public void setOrderGroup(List<Orders> orderGroup) {
       this.orderGroup = orderGroup;
     }
 
