@@ -38,5 +38,5 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
-    List<String> OrderList; // mudar para Order
+    List<Order> orderGroup;
 }
