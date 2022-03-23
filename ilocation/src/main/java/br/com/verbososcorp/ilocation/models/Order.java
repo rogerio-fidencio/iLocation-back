@@ -16,13 +16,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-<<<<<<< HEAD:ilocation/src/main/java/br/com/verbososcorp/ilocation/models/Orders.java
-@Table(name = "orders")
-public class Orders {
-=======
 @Table(name = "tb_order")
 public class Order {
->>>>>>> d6728ea99caeecaecb298b3cea15f8a28e58417c:ilocation/src/main/java/br/com/verbososcorp/ilocation/models/Order.java
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +32,7 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order")
 	@JsonIgnoreProperties("order")
-	List<GeoLocation> geoLocationGroup;
+	private List<GeoLocation> geoLocationGroup;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -48,6 +43,7 @@ public class Order {
 	@JoinColumn(name = "delivery_person_id")
 	@JsonIgnoreProperties("orderGroup")
 	private DeliveryPerson deliveryPerson;
+
 
 	public Integer getId() {
 		return id;
@@ -96,6 +92,4 @@ public class Order {
 	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
 		this.deliveryPerson = deliveryPerson;
 	}
-	
-	
 }

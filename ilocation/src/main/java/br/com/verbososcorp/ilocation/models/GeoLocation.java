@@ -34,7 +34,7 @@ public class GeoLocation {
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	@JsonIgnoreProperties("geoLocationGroup")
-	private Orders order;
+	private Order order;
 
 	public Integer getId() {
 		return id;
@@ -68,11 +68,11 @@ public class GeoLocation {
 		this.longitude = longitude;
 	}
 
-	public Orders getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(Orders order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 	

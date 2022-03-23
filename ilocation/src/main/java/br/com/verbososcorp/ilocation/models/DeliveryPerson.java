@@ -38,7 +38,7 @@ public class DeliveryPerson {
 
     @OneToMany(mappedBy = "deliveryPerson")
     @JsonIgnoreProperties("deliveryPerson")
-    private List<Orders> orderGroup;
+    private List<Order> orderGroup;
 
 
 
@@ -82,11 +82,11 @@ public class DeliveryPerson {
 		this.password = password;
 	}
 
-	public List<Orders> getOrderGroup() {
+	public List<Order> getOrderGroup() {
 		return orderGroup;
 	}
 
-	public void setOrderGroup(List<Orders> orderGroup) {
+	public void setOrderGroup(List<Order> orderGroup) {
 		this.orderGroup = orderGroup;
 	}
 
