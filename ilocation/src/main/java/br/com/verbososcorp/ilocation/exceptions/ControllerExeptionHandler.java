@@ -2,6 +2,7 @@ package br.com.verbososcorp.ilocation.exceptions;
 
 
 import br.com.verbososcorp.ilocation.exceptions.exceptions.AuthExeption;
+import br.com.verbososcorp.ilocation.exceptions.exceptions.BadRequestException;
 import br.com.verbososcorp.ilocation.exceptions.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,17 @@ public class ControllerExeptionHandler {
                         + exception.getFieldErrors().get(0).getDefaultMessage(),
                 request.getDescription(false)
         );
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage> BadRequestException(BadRequestException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
     }
 
