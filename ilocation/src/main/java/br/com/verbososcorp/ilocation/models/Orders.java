@@ -16,12 +16,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Orders {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id", nullable = false)
+	@Column(name = "order_id")
 	private Integer id;
 	
 	@Column(name = "order_date", nullable = false)
@@ -32,7 +32,7 @@ public class Orders {
 	
 	@OneToMany(mappedBy = "order")
 	@JsonIgnoreProperties("order")
-	private List<GeoLocation> geoLocationGroup;
+	List<GeoLocation> geoLocationGroup;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -43,7 +43,6 @@ public class Orders {
 	@JoinColumn(name = "delivery_person_id")
 	@JsonIgnoreProperties("orderGroup")
 	private DeliveryPerson deliveryPerson;
-
 
 	public Integer getId() {
 		return id;
@@ -92,4 +91,6 @@ public class Orders {
 	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
 		this.deliveryPerson = deliveryPerson;
 	}
+	
+	
 }
