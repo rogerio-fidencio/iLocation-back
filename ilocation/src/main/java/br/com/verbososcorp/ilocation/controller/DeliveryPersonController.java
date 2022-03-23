@@ -22,7 +22,7 @@ public class DeliveryPersonController {
     @Autowired
     DeliveryPersonServiceImpl service;
 
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<DeliveryPerson> getAll(@Validated @RequestBody DeliveryPerson deliveryPerson){
         return service.register(deliveryPerson);
     }

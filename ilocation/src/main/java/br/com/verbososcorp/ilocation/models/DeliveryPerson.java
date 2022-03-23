@@ -6,12 +6,11 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table(name = "delivery_person")
+@Table(name = "tb_delivery_person")
 public class DeliveryPerson {
 
     @Id

@@ -1,6 +1,7 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
+import br.com.verbososcorp.ilocation.exceptions.exceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.models.Customer;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,13 +37,13 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<DeliveryPerson> userOP = dao.findByEmail(email);
+        Optional<DeliveryPerson> userOptional = dao.findByEmail(email);
 
-        if(userOP.isEmpty()){
+        if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("Dados incorretos");
         }
 
-        DeliveryPerson user = userOP.get();
+        DeliveryPerson user = userOptional.get();
 
         //aqui pegar as roles/permitions
 
@@ -55,4 +58,21 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         dao.save(newDeliveryPerson);
         return ResponseEntity.status(HttpStatus.CREATED).body(newDeliveryPerson);
     }
+
+    @Override
+    public ResponseEntity<DeliveryPerson> getByEmail(String email) {
+        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+
+        if (deliveryPersonOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+        }
+
+        return ResponseEntity.ok(deliveryPersonOptional.get());
+    }
+
+    @Override
+    public ResponseEntity<List<DeliveryPerson>> getAll() {
+        return null;
+    }
+
 }

@@ -16,12 +16,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "order")
+@Table(name = "tb_order")
 public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id", nullable = false)
+	@Column(name = "order_id")
 	private Integer id;
 	
 	@Column(name = "order_date", nullable = false)

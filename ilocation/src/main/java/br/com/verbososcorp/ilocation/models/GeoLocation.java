@@ -14,15 +14,15 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "geolocation")
+@Table(name = "tb_geolocation")
 public class GeoLocation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "location_id", nullable = false)
+	@Column(name = "location_id")
 	private Integer id;
 	
-	@Column(name = "timastamp", nullable = false)
+	@Column(name = "timestamp", nullable = false)
 	private Timestamp timestamp;
 	
 	@Column(name = "latitude", nullable = false)
