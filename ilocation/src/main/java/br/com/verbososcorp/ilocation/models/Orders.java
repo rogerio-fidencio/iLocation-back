@@ -16,8 +16,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+<<<<<<< HEAD:ilocation/src/main/java/br/com/verbososcorp/ilocation/models/Orders.java
 @Table(name = "orders")
 public class Orders {
+=======
+@Table(name = "tb_order")
+public class Order {
+>>>>>>> d6728ea99caeecaecb298b3cea15f8a28e58417c:ilocation/src/main/java/br/com/verbososcorp/ilocation/models/Order.java
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
