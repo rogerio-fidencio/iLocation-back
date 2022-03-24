@@ -16,5 +16,7 @@ public interface OrderService {
 	public ResponseEntity<List<GeoLocation>> getTracking(Integer id);
 	
 	public ResponseEntity<List<Order>> getByStatus(Integer status);
+	
+	public ResponseEntity<?> assignDeliveryPerson(Integer idOrder, Integer idDeliveryPerson);
 
 }

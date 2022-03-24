@@ -7,11 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
-
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAssignmentDTO;
+import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.models.GeoLocation;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
@@ -41,5 +44,10 @@ public class OrderController {
 	@GetMapping("/getByStatus/{status}")
 	public ResponseEntity<List<Order>> getByStatus(@PathVariable Integer status){
 		return service.getByStatus(status);
+	}
+	
+	@PatchMapping("/assign")
+	public ResponseEntity<?> assignDeliveryPerson(@RequestBody DeliveryPersonAssignmentDTO dpaDTO){
+		return service.assignDeliveryPerson(dpaDTO.getOrderID(), dpaDTO.getDeliveryPersonID());
 	}
 }
