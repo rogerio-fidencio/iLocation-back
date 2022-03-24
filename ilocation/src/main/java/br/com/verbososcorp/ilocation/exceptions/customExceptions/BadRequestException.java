@@ -1,6 +1,4 @@
-package br.com.verbososcorp.ilocation.exceptions.exceptions;
-
-import org.springframework.web.client.HttpClientErrorException;
+package br.com.verbososcorp.ilocation.exceptions.customExceptions;
 
 public class BadRequestException extends RuntimeException {
 

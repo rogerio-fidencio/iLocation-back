@@ -1,4 +1,4 @@
-package br.com.verbososcorp.ilocation.exceptions.exceptions;
+package br.com.verbososcorp.ilocation.exceptions.customExceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 
