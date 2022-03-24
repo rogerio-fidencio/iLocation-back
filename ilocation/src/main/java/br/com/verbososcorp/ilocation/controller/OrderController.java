@@ -4,12 +4,11 @@ import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 import java.util.List;
 
+import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 
 import br.com.verbososcorp.ilocation.models.GeoLocation;
@@ -38,8 +37,13 @@ public class OrderController {
 		return service.getTracking(id);
 	}
 	
-	@GetMapping("/getByStatus/{status}")
+	@GetMapping("/Status")
 	public ResponseEntity<List<Order>> getByStatus(@PathVariable Integer status){
 		return service.getByStatus(status);
+	}
+
+	@PatchMapping("/status")
+	public ResponseEntity<Order> changeStatus(@RequestBody @Validated OrderChangeStatusFormDTO changeStatusForm){
+		return service.changeStatus(changeStatusForm);
 	}
 }
