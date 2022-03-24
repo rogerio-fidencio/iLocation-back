@@ -33,6 +33,10 @@ public class DeliveryPerson {
     private String email;
 
 	@NotEmpty
+	@Column(name = "delivery_person_phone", nullable = false, length = 11)
+	private String phone;
+
+	@NotEmpty
     @Column(name = "delivery_person_password", nullable = false, columnDefinition = "TEXT")
     private String password;
 
@@ -72,6 +76,14 @@ public class DeliveryPerson {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPassword() {
