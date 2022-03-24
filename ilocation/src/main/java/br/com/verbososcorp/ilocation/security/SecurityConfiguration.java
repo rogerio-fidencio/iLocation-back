@@ -1,7 +1,7 @@
 package br.com.verbososcorp.ilocation.security;
 
 
-import br.com.verbososcorp.ilocation.Filters.CustomAuthorizationFilter;
+// import br.com.verbososcorp.ilocation.Filters.CustomAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
