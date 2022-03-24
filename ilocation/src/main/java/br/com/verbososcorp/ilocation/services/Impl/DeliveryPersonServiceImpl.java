@@ -1,6 +1,7 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
@@ -68,8 +69,25 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
     }
 
     @Override
+    public Integer getIdByEmail(String email) {
+        return dao.findByEmail(email).get().getId();
+    }
+
+    @Override
     public ResponseEntity<List<DeliveryPerson>> getAll() {
         return null;
+    }
+
+    @Override
+    public DeliveryPersonDTO getByEmailForAuth(String email) {
+        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+
+        if (deliveryPersonOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+        }
+        DeliveryPerson deliveryPerson = deliveryPersonOptional.get();
+
+        return new DeliveryPersonDTO(deliveryPerson.getId(), deliveryPerson.getName(), deliveryPerson.getPhone());
     }
 
 }
