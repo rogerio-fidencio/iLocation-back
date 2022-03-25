@@ -4,6 +4,7 @@ import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 import java.util.List;
 
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAssignmentDTO;
 import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,10 @@ public class OrderController {
 	@PatchMapping("/status")
 	public ResponseEntity<Order> changeStatus(@RequestBody @Validated OrderChangeStatusFormDTO changeStatusForm){
 		return service.changeStatus(changeStatusForm);
+	}
+	
+	@PatchMapping("/assign/{orderID}")
+	public ResponseEntity<Order> assignDeliveryPerson(@PathVariable Integer orderID){
+		return service.assignDeliveryPerson(orderID);
 	}
 }
