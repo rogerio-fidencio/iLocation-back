@@ -1,6 +1,7 @@
 package br.com.verbososcorp.ilocation.util;
 
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,13 +15,17 @@ public class Project {
         return Algorithm.HMAC256(secret.getBytes());
     }
 
-    public static DeliveryPersonDTO getContextData() throws JsonProcessingException {
+    public static DeliveryPersonDTO getContextData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String stringData = authentication.getName();
         stringData = stringData.replaceAll("\\\\", "");
         stringData = stringData.substring(1);
         stringData = stringData.substring(0, stringData.length() - 1);
-        return new ObjectMapper().readValue(stringData, DeliveryPersonDTO.class);
 
+        try {
+            return new ObjectMapper().readValue(stringData, DeliveryPersonDTO.class);
+        } catch (JsonProcessingException e) {
+            throw new InternalServerErrorException(e.getMessage());
+        }
     }
 }
