@@ -1,7 +1,5 @@
 package br.com.verbososcorp.ilocation.DTO;
 
-import br.com.verbososcorp.ilocation.models.DeliveryPerson;
-
 public class OrderDTO {
 	
 	Integer id;
