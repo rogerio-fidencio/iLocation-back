@@ -1,7 +1,5 @@
 package br.com.verbososcorp.ilocation.controller;
 
-
-import br.com.verbososcorp.ilocation.DAO.CustomerDAO;
 import br.com.verbososcorp.ilocation.models.Customer;
 import br.com.verbososcorp.ilocation.services.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,6 @@ public class CustomerController {
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> getall(){
-        return service.getall();
+        return ResponseEntity.ok(service.getall());
     }
 }

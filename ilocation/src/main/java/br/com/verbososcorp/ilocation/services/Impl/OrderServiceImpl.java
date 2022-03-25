@@ -12,11 +12,7 @@ import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerE
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
@@ -38,30 +34,45 @@ public class OrderServiceImpl implements OrderService {
 	private DeliveryPersonDAO deliveryPersonDAO;
 
     @Override
-    public ResponseEntity<List<Order>> getAll() {
-        List<Order> orderList = (List<Order>) dao.findAll();
-        return ResponseEntity.ok(orderList);
+    public List<Order> getAll() {
+    	
+        try {
+			List<Order> orderList = (List<Order>) dao.findAll();
+			return orderList;
+			
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
+		}
+        
     }
+    
 
     @Override
-    public ResponseEntity<Order> getByID(Integer id) {
-        Optional<Order> order = dao.findById(id);
+    public Order getByID(Integer id) {
+        try {
+			Optional<Order> order = dao.findById(id);
 
-        if (order.isEmpty()) {
-            throw new ResourceNotFoundException("Pedido não encontrado");
-        }
+			if (order.isEmpty()) {
+			    throw new ResourceNotFoundException("Pedido não encontrado");
+			}
 
-        return ResponseEntity.ok(order.get());
+			return order.get();
+			
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
+		}
     }
 
+    
     @Override
-    public ResponseEntity<List<GeoLocation>> getTracking(Integer id) {
+    public List<GeoLocation> getTracking(Integer id) {
         // TODO Auto-generated method stub
         return null;
     }
+    
 
     @Override
-    public ResponseEntity<List<Order>> getByStatus(Integer status) {
+    public List<Order> getByStatus(Integer status) {
         
     	try {
     		List<Order> completeOrderList = (List<Order>) dao.findAll();
@@ -80,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
         		
         	}    	        	
          	
-            return ResponseEntity.ok(orderListByStatus);
+            return orderListByStatus;
             
     	}catch(Exception e) {
     		
@@ -96,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
     //2 - Entregue: Pedido entregue ao cliente
     //3 - Cancelado
 
-    public ResponseEntity<Order> changeStatus(OrderChangeStatusFormDTO orderChangeStatusForm) {
+    public Order changeStatus(OrderChangeStatusFormDTO orderChangeStatusForm) {
         try {
             Optional<Order> orderToChangeOptional = dao.findById(orderChangeStatusForm.getOrderID());
 
@@ -123,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
 
             orderToChange.setStatus(orderChangeStatusForm.getStatus());
             dao.save(orderToChange);
-            return ResponseEntity.status(HttpStatus.CREATED).body(orderToChange);
+            return orderToChange;
 
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
@@ -131,12 +142,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
-	public ResponseEntity<Order> assignDeliveryPerson(Integer orderID) {		
-		
-		DeliveryPersonDTO user = new DeliveryPersonDTO();
+	public Order assignDeliveryPerson(Integer orderID) {			
 		
 		try {
-			user = Project.getContextData();
+			DeliveryPersonDTO user = Project.getContextData();
 			
 			Integer userID = user.getId();
 			
@@ -146,31 +155,31 @@ public class OrderServiceImpl implements OrderService {
 				throw new BadRequestException("Entregador não disponível para atribuição");
 			}			
 		
-		if (orderID == null || userID == null) {
-			throw new BadRequestException("Número do pedido e pessoa entregadora devem ser informados");
-		}		
-		
-		Optional<Order> order = dao.findById(orderID);
-		
-		if(order.isEmpty()) {
-			throw new ResourceNotFoundException("Pedido não encontrado");
-		}
-		
-		if (order.get().getStatus() != 0) {
-			throw new BadRequestException("Pedido não disponível para atribuição");
-		}					
-		
-		Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);		
-				
-		if(deliveryPerson.isEmpty()) {
-			throw new ResourceNotFoundException("Pessoa Entregadora não encontrada"); 
-		}		
-		
+			if (orderID == null || userID == null) {
+				throw new BadRequestException("Número do pedido e pessoa entregadora devem ser informados");
+			}		
+			
+			Optional<Order> order = dao.findById(orderID);
+			
+			if(order.isEmpty()) {
+				throw new ResourceNotFoundException("Pedido não encontrado");
+			}
+			
+			if (order.get().getStatus() != 0) {
+				throw new BadRequestException("Pedido não disponível para atribuição");
+			}					
+			
+			Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);		
+					
+			if(deliveryPerson.isEmpty()) {
+				throw new ResourceNotFoundException("Pessoa Entregadora não encontrada"); 
+			}		
+			
 			order.get().setDeliveryPerson(deliveryPerson.get());			
 			order.get().setStatus(1);				
 			dao.save(order.get());
 				
-			return ResponseEntity.ok(order.get());
+			return order.get();
 			
 		}catch(Exception e) {
 			
