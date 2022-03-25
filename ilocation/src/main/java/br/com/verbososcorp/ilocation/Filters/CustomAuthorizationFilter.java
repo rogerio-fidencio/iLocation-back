@@ -65,11 +65,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
             String email = decodedJWT.getSubject();
 
-            Claim userID =decodedJWT.getClaim ("id");
-            Claim userPhone = decodedJWT.getClaim("phone");
-            Claim userName = decodedJWT.getClaim("name");
+            Claim user =decodedJWT.getClaim ("user");
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userID , null, new ArrayList<>());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user , null, new ArrayList<>());
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

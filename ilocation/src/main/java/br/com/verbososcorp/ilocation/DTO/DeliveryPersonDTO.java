@@ -5,6 +5,9 @@ public class DeliveryPersonDTO {
     String name;
     String phone;
 
+    public DeliveryPersonDTO() {
+    }
+
     public DeliveryPersonDTO(Integer id, String name, String phone) {
         this.id = id;
         this.name = name;

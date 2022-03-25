@@ -75,12 +75,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authentication.getPrincipal();
 
         Algorithm algorithm = getAlgorithm(TOKEN_SENHA);
-
+        String UserDTOJson = new ObjectMapper().writeValueAsString(userDTO);
+        System.out.println(UserDTOJson);
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withClaim("id", userDTO.getId())
-                .withClaim( "name", userDTO.getName())
-                .withClaim("phone", userDTO.getPhone())
+                .withClaim("user", UserDTOJson)
                 .withExpiresAt(new Date(System.currentTimeMillis() + HOURS*2))
                 .withIssuer(ISSUER)
                 .sign(algorithm);
