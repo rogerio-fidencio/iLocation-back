@@ -1,5 +1,6 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
+import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.models.GeoLocation;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
+import br.com.verbososcorp.ilocation.util.Project;
 
 @Component
 @Primary
@@ -26,11 +30,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDAO dao;
+    
+    @Autowired
+	private DeliveryPersonDAO deliveryPersonDAO;
 
     @Override
     public ResponseEntity<List<Order>> getAll() {
         List<Order> orderList = (List<Order>) dao.findAll();
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(orderList);
+        return ResponseEntity.ok(orderList);
     }
 
     @Override
@@ -52,8 +59,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<List<Order>> getByStatus(Integer status) {
-        // TODO Auto-generated method stub
-        return null;
+        
+    	try {
+    		List<Order> completeOrderList = (List<Order>) dao.findAll();
+        	
+        	if (status >3 || status < 0) {
+        		throw new BadRequestException("Status inválido.");
+        	}
+        	
+        	List<Order> orderListByStatus = new ArrayList<Order>();
+        	
+        	for (Order o: completeOrderList) {
+        		
+        		if(o.getStatus() == status) {    			
+        			orderListByStatus.add(o);
+        		} 		
+        		
+        	}    	        	
+         	
+            return ResponseEntity.ok(orderListByStatus);
+            
+    	}catch(Exception e) {
+    		
+    		throw new InternalServerErrorException(e.getMessage());
+    		
+    	}    	    	
     }
 
     @Override
@@ -96,6 +126,46 @@ public class OrderServiceImpl implements OrderService {
             throw new InternalServerErrorException(e.getMessage());
         }
     }
+
+	@Override
+	public ResponseEntity<Order> assignDeliveryPerson(Integer orderID) {
+		
+		Integer userID = Project.getTokenID();
+		
+		try {
+		
+		if (orderID == null || userID == null) {
+			throw new BadRequestException("Número do pedido e pessoa entregadora devem ser informados");
+		}		
+		
+		Optional<Order> order = dao.findById(orderID);
+		
+		if(order.isEmpty()) {
+			throw new ResourceNotFoundException("Pedido não encontrado");
+		}
+		
+		if (order.get().getStatus() != 0) {
+			throw new BadRequestException("Pedido não disponível para atribuição");
+		}					
+		
+		Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);		
+				
+		if(deliveryPerson.isEmpty()) {
+			throw new ResourceNotFoundException("Pessoa Entregadora não encontrada"); 
+		}		
+		
+			order.get().setDeliveryPerson(deliveryPerson.get());			
+			order.get().setStatus(1);				
+			dao.save(order.get());
+				
+			return ResponseEntity.ok(order.get());
+			
+		}catch(Exception e) {
+			
+			throw new InternalServerErrorException(e.getMessage());					
+			
+		}
+	}
 
 
 }

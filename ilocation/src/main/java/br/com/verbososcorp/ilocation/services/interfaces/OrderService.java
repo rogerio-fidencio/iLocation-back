@@ -19,4 +19,7 @@ public interface OrderService {
 	public ResponseEntity<List<Order>> getByStatus(Integer status);
 
 	public ResponseEntity<Order> changeStatus(OrderChangeStatusFormDTO changeStatusForm);
+	
+	public ResponseEntity<Order> assignDeliveryPerson(Integer orderID);
+	
 }
