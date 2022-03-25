@@ -2,14 +2,13 @@ package br.com.verbososcorp.ilocation.services.Impl;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,44 +49,54 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
 
     @Override
-    public ResponseEntity<DeliveryPerson> register(DeliveryPerson newDeliveryPerson) {
-        newDeliveryPerson.setPassword(passwordEncoder.encode(newDeliveryPerson.getPassword()));
+    public DeliveryPerson register(DeliveryPerson newDeliveryPerson) {
+        try {
+            newDeliveryPerson.setPassword(passwordEncoder.encode(newDeliveryPerson.getPassword()));
 
-        dao.save(newDeliveryPerson);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newDeliveryPerson);
-    }
-
-    @Override
-    public ResponseEntity<DeliveryPerson> getByEmail(String email) {
-        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
-
-        if (deliveryPersonOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+            dao.save(newDeliveryPerson);
+            return newDeliveryPerson;
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
         }
-
-        return ResponseEntity.ok(deliveryPersonOptional.get());
     }
 
     @Override
-    public Integer getIdByEmail(String email) {
-        return dao.findByEmail(email).get().getId();
+    public DeliveryPerson getByEmail(String email) {
+        try {
+            Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+
+            if (deliveryPersonOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+            }
+            return deliveryPersonOptional.get();
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
+        }
     }
 
     @Override
-    public ResponseEntity<List<DeliveryPerson>> getAll() {
-        return null;
+    public List<DeliveryPerson> getAll() {
+        try {
+            return (List<DeliveryPerson>) dao.findAll();
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
+        }
     }
 
     @Override
     public DeliveryPersonDTO getByEmailForAuth(String email) {
-        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+        try {
+            Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
 
-        if (deliveryPersonOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+            if (deliveryPersonOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+            }
+            DeliveryPerson deliveryPerson = deliveryPersonOptional.get();
+
+            return new DeliveryPersonDTO(deliveryPerson.getId(), deliveryPerson.getName(), deliveryPerson.getPhone());
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
         }
-        DeliveryPerson deliveryPerson = deliveryPersonOptional.get();
-
-        return new DeliveryPersonDTO(deliveryPerson.getId(), deliveryPerson.getName(), deliveryPerson.getPhone());
     }
 
 }
