@@ -59,26 +59,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResponseEntity<List<Order>> getByStatus(Integer status) {
-        // TODO Auto-generated method stub
-    	
-    	List<Order> completeOrderList = (List<Order>) dao.findAll();
-    	
-    	if (status >3 || status < 0) {
-    		throw new BadRequestException("Status inválido.");
-    	}
-    	
-    	List<Order> orderListByStatus = new ArrayList<Order>();
-    	
-    	for (Order o: completeOrderList) {
+        
+    	try {
+    		List<Order> completeOrderList = (List<Order>) dao.findAll();
+        	
+        	if (status >3 || status < 0) {
+        		throw new BadRequestException("Status inválido.");
+        	}
+        	
+        	List<Order> orderListByStatus = new ArrayList<Order>();
+        	
+        	for (Order o: completeOrderList) {
+        		
+        		if(o.getStatus() == status) {    			
+        			orderListByStatus.add(o);
+        		} 		
+        		
+        	}    	        	
+         	
+            return ResponseEntity.ok(orderListByStatus);
+            
+    	}catch(Exception e) {
     		
-    		if(o.getStatus() == status) {    			
-    			orderListByStatus.add(o);
-    		}    		
+    		throw new InternalServerErrorException(e.getMessage());
     		
-    	}    	
-    	
-     	
-        return ResponseEntity.ok(orderListByStatus);
+    	}    	    	
     }
 
     @Override
@@ -127,10 +132,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		Integer userID = Project.getTokenID();
 		
+		try {
+		
 		if (orderID == null || userID == null) {
 			throw new BadRequestException("Número do pedido e pessoa entregadora devem ser informados");
-		}
-		
+		}		
 		
 		Optional<Order> order = dao.findById(orderID);
 		
@@ -140,28 +146,23 @@ public class OrderServiceImpl implements OrderService {
 		
 		if (order.get().getStatus() != 0) {
 			throw new BadRequestException("Pedido não disponível para atribuição");
-		}			
-		
+		}					
 		
 		Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);		
 				
 		if(deliveryPerson.isEmpty()) {
 			throw new ResourceNotFoundException("Pessoa Entregadora não encontrada"); 
-		}
-	
+		}		
 		
-		try {
-			order.get().setDeliveryPerson(deliveryPerson.get());
-			
-			order.get().setStatus(1);
-				
+			order.get().setDeliveryPerson(deliveryPerson.get());			
+			order.get().setStatus(1);				
 			dao.save(order.get());
 				
 			return ResponseEntity.ok(order.get());
 			
 		}catch(Exception e) {
 			
-			throw new InternalServerErrorException("Não foi possível realizar a solicitação. | " + e.getMessage());					
+			throw new InternalServerErrorException(e.getMessage());					
 			
 		}
 	}
