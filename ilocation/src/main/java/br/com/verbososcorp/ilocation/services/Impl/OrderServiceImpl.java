@@ -63,6 +63,10 @@ public class OrderServiceImpl implements OrderService {
     	
     	List<Order> completeOrderList = (List<Order>) dao.findAll();
     	
+    	if (status >3 || status < 0) {
+    		throw new BadRequestException("Status inválido.");
+    	}
+    	
     	List<Order> orderListByStatus = new ArrayList<Order>();
     	
     	for (Order o: completeOrderList) {
@@ -73,6 +77,7 @@ public class OrderServiceImpl implements OrderService {
     		
     	}    	
     	
+     	
         return ResponseEntity.ok(orderListByStatus);
     }
 
