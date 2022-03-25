@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,31 +25,31 @@ public class OrderController {
 				
 	@GetMapping("")
 	public ResponseEntity<List<Order>> getAll(){			
-		return service.getAll();
+		return ResponseEntity.ok(service.getAll());
 	}
 	
 	@GetMapping("{id}")
 	public ResponseEntity<Order> getByID(@PathVariable Integer id){
-		return service.getByID(id);
+		return ResponseEntity.ok(service.getByID(id));
 	}
 	
 	@GetMapping("/getTracking/{id}")
 	public ResponseEntity<List<GeoLocation>> getTracking(@PathVariable Integer id){
-		return service.getTracking(id);
+		return ResponseEntity.ok(service.getTracking(id));
 	}
 	
 	@GetMapping("/status/{status}")
 	public ResponseEntity<List<Order>> getByStatus(@PathVariable Integer status){
-		return service.getByStatus(status);
+		return ResponseEntity.ok(service.getByStatus(status));
 	}
 
 	@PatchMapping("/status")
-	public ResponseEntity<Order> changeStatus(@RequestBody @Validated OrderChangeStatusFormDTO changeStatusForm){
-		return service.changeStatus(changeStatusForm);
+	public ResponseEntity<Order> changeStatus(@RequestBody @Validated OrderChangeStatusFormDTO changeStatusForm){		
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.changeStatus(changeStatusForm));
 	}
 	
 	@PatchMapping("/assign/{orderID}")
 	public ResponseEntity<Order> assignDeliveryPerson(@PathVariable Integer orderID){
-		return service.assignDeliveryPerson(orderID);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.assignDeliveryPerson(orderID));
 	}
 }
