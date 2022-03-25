@@ -1,5 +1,6 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ResponseEntity<List<Order>> getByStatus(Integer status) {
         // TODO Auto-generated method stub
-        return null;
+    	
+    	List<Order> completeOrderList = (List<Order>) dao.findAll();
+    	
+    	List<Order> orderListByStatus = new ArrayList<Order>();
+    	
+    	for (Order o: completeOrderList) {
+    		
+    		if(o.getStatus() == status) {    			
+    			orderListByStatus.add(o);
+    		}    		
+    		
+    	}    	
+    	
+        return ResponseEntity.ok(orderListByStatus);
     }
 
     @Override

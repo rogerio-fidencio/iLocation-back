@@ -38,7 +38,7 @@ public class OrderController {
 		return service.getTracking(id);
 	}
 	
-	@GetMapping("/Status")
+	@GetMapping("/status/{status}")
 	public ResponseEntity<List<Order>> getByStatus(@PathVariable Integer status){
 		return service.getByStatus(status);
 	}
