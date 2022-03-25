@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -128,11 +131,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
-	public ResponseEntity<Order> assignDeliveryPerson(Integer orderID) {
+	public ResponseEntity<Order> assignDeliveryPerson(Integer orderID) {		
 		
-		Integer userID = Project.getTokenID();
+		DeliveryPersonDTO user = new DeliveryPersonDTO();
 		
 		try {
+			user = Project.getContextData();
+			
+			Integer userID = user.getId();
+			
+			Optional<OrderDTO> orderValidation = dao.getCurrentOrderByDeliveryPersonId(userID);
+			
+			if(orderValidation.isPresent()) {
+				throw new BadRequestException("Entregador não disponível para atribuição");
+			}			
 		
 		if (orderID == null || userID == null) {
 			throw new BadRequestException("Número do pedido e pessoa entregadora devem ser informados");
