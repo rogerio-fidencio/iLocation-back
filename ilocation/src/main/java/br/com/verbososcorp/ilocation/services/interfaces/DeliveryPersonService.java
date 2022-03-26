@@ -7,13 +7,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface DeliveryPersonService {
-    ResponseEntity<DeliveryPerson> register(DeliveryPerson newDeliveryPerson);
+    DeliveryPerson register(DeliveryPerson newDeliveryPerson);
 
-    ResponseEntity<DeliveryPerson> getByEmail(String email);
+    DeliveryPerson getByEmail(String email);
 
-    Integer getIdByEmail(String email);
-
-    ResponseEntity<List<DeliveryPerson>> getAll();
+    List<DeliveryPerson> getAll();
 
     DeliveryPersonDTO getByEmailForAuth(String email);
 }
