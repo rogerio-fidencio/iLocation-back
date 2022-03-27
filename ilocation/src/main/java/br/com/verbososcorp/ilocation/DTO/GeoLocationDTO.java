@@ -1,10 +1,5 @@
 package br.com.verbososcorp.ilocation.DTO;
 
-import br.com.verbososcorp.ilocation.models.GeoLocation;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class GeoLocationDTO {
