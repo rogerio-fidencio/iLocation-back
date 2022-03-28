@@ -1,6 +1,7 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
@@ -33,19 +34,19 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Optional<DeliveryPerson> userOptional = dao.findByEmail(email);
+    public UserDetails loadUserByUsername(String emailOrCPF) throws UsernameNotFoundException {
+        System.out.println("oi loadby username");
+        Optional<DeliveryPersonAuthDTO> userOptional = dao.findDeliveryPersonAuthDTOByEmailOrCPF(emailOrCPF);
 
         if (userOptional.isEmpty()) {
-            throw new UsernameNotFoundException("Dados incorretos");
+            throw new UsernameNotFoundException("Dados incorretos.");
         }
 
-        DeliveryPerson user = userOptional.get();
+        DeliveryPersonAuthDTO user = userOptional.get();
 
         //aqui pegar as roles/permitions
 
-        return new User(user.getEmail(), user.getPassword(), new ArrayList<>()); // permitions iriam no array vazio
+        return new User(user.getEmailOrCPF(), user.getPassword(), new ArrayList<>()); // permitions iriam no array vazio
     }
 
 
@@ -65,7 +66,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
     @Override
     public DeliveryPerson getByEmail(String email) {
-
         try {
             Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
 
@@ -95,15 +95,15 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
     }
 
     @Override
-    public DeliveryPersonDTO getByEmailForAuth(String email) {
+    public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrCPF(String emailOrCPF) {
+        System.out.println("oi, load by auth");
         try {
-            Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
-
+            Optional<DeliveryPersonDTO> deliveryPersonOptional = dao.findDeliveryPersonDTOByEmailOrCPF(emailOrCPF);
             if (deliveryPersonOptional.isEmpty()) {
                 throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
             }
 
-            DeliveryPerson deliveryPerson = deliveryPersonOptional.get();
+            DeliveryPersonDTO deliveryPerson = deliveryPersonOptional.get();
 
             return new DeliveryPersonDTO(deliveryPerson.getId(), deliveryPerson.getName(), deliveryPerson.getPhone());
 

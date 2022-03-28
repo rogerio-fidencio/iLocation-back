@@ -4,19 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/refatoring imports" />
+    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/refatoring try-catch">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DTO/DeliveryPersonAuthDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="fix/refatoring_imports" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.6.2/spring-security-core-5.6.2.jar!/org/springframework/security/authentication/AuthenticationManager.class" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -45,6 +72,9 @@
     </option>
   </component>
   <component name="ProjectId" id="271MnlIE9xN7Z2FfkVBUH6vsjRJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,6 +84,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RunManager">
     <configuration name="IlocationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -91,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648496474021</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix/refatoring try-catch">
+      <created>1648497176623</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648497176623</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,7 +145,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix/refatoring imports" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix/refatoring imports" />
+    <MESSAGE value="fix/refatoring try-catch" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix/refatoring try-catch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

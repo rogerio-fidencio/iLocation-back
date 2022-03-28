@@ -12,5 +12,5 @@ public interface DeliveryPersonService {
 
     List<DeliveryPerson> getAll();
 
-    DeliveryPersonDTO getByEmailForAuth(String email);
+    DeliveryPersonDTO findDeliveryPersonDTOByEmailOrCPF(String email);
 }
