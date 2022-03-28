@@ -1,8 +1,7 @@
 package br.com.verbososcorp.ilocation.controller;
 
-import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
-
 import br.com.verbososcorp.ilocation.DTO.GeoLocationDTO;
+import br.com.verbososcorp.ilocation.models.GeoLocation;
 import br.com.verbososcorp.ilocation.services.interfaces.GeoLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.verbososcorp.ilocation.models.GeoLocation;
+import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 
 @RestController

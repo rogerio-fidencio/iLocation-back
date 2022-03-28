@@ -1,22 +1,21 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
+import br.com.verbososcorp.ilocation.DAO.GeoLocationDAO;
+import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.DTO.GeoLocationDTO;
 import br.com.verbososcorp.ilocation.DTO.OrderDTO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.models.GeoLocation;
+import br.com.verbososcorp.ilocation.models.Order;
+import br.com.verbososcorp.ilocation.services.interfaces.GeoLocationService;
+import br.com.verbososcorp.ilocation.util.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
-import br.com.verbososcorp.ilocation.DAO.GeoLocationDAO;
-import br.com.verbososcorp.ilocation.DAO.OrderDAO;
-import br.com.verbososcorp.ilocation.models.GeoLocation;
-import br.com.verbososcorp.ilocation.models.Order;
-import br.com.verbososcorp.ilocation.services.interfaces.GeoLocationService;
-import br.com.verbososcorp.ilocation.util.Project;
 
 import java.util.Optional;
 

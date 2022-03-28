@@ -1,19 +1,14 @@
 package br.com.verbososcorp.ilocation.controller;
 
-import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
+import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
+import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 @RestController
 @RequestMapping(BASE_URL + "/order")

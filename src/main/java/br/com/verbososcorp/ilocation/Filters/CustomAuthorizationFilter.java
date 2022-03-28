@@ -1,10 +1,7 @@
 package br.com.verbososcorp.ilocation.Filters;
 
 
-import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.ErrorMessage;
-import br.com.verbososcorp.ilocation.models.DeliveryPerson;
-import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 import br.com.verbososcorp.ilocation.util.Project;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -13,10 +10,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
