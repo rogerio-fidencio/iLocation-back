@@ -6,12 +6,11 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table(name = "delivery_person")
+@Table(name = "tb_delivery_person")
 public class DeliveryPerson {
 
     @Id
@@ -34,12 +33,18 @@ public class DeliveryPerson {
     private String email;
 
 	@NotEmpty
+	@Column(name = "delivery_person_phone", nullable = false, length = 11)
+	private String phone;
+
+	@NotEmpty
     @Column(name = "delivery_person_password", nullable = false, columnDefinition = "TEXT")
     private String password;
 
     @OneToMany(mappedBy = "deliveryPerson")
     @JsonIgnoreProperties("deliveryPerson")
     private List<Order> orderGroup;
+
+
 
 	public Integer getId() {
 		return id;
@@ -73,6 +78,14 @@ public class DeliveryPerson {
 		this.email = email;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -88,7 +101,6 @@ public class DeliveryPerson {
 	public void setOrderGroup(List<Order> orderGroup) {
 		this.orderGroup = orderGroup;
 	}
-    
-    
+
 
 }

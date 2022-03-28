@@ -10,27 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "geolocation")
+@Table(name = "tb_geolocation")
 public class GeoLocation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "location_id", nullable = false)
+	@Column(name = "location_id")
 	private Integer id;
-	
-	@Column(name = "timastamp", nullable = false)
+
+	@NotNull
+	@Column(name = "timestamp", nullable = false)
 	private Timestamp timestamp;
-	
+
+	@NotEmpty
 	@Column(name = "latitude", nullable = false)
 	private String latitude;
-	
+
+	@NotEmpty
 	@Column(name = "longitude", nullable = false)
 	private String longitude;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	@JsonIgnoreProperties("geoLocationGroup")

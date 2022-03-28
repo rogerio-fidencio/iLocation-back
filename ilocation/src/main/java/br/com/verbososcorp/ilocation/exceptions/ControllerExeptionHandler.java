@@ -1,10 +1,13 @@
 package br.com.verbososcorp.ilocation.exceptions;
 
 
-import br.com.verbososcorp.ilocation.exceptions.exceptions.AuthExeption;
-import br.com.verbososcorp.ilocation.exceptions.exceptions.ResourceNotFoundException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.AuthExeption;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,4 +54,36 @@ public class ControllerExeptionHandler {
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage> BadRequestException(BadRequestException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorMessage> HttpMessageNotReadableException(HttpMessageNotReadableException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InternalServerErrorException.class)
+    public ResponseEntity<ErrorMessage> InternalServerError(InternalServerErrorException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

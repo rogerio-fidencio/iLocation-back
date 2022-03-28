@@ -22,8 +22,9 @@ public class DeliveryPersonController {
     @Autowired
     DeliveryPersonServiceImpl service;
 
-    @PostMapping("/register")
-    public ResponseEntity<DeliveryPerson> getAll(@Validated @RequestBody DeliveryPerson deliveryPerson){
-        return service.register(deliveryPerson);
+    @PostMapping()
+    public ResponseEntity<DeliveryPerson> putDeliveryPerson(@Validated @RequestBody DeliveryPerson deliveryPerson){
+        DeliveryPerson newDeliveryPerson = service.register(deliveryPerson);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newDeliveryPerson);
     }
 }
