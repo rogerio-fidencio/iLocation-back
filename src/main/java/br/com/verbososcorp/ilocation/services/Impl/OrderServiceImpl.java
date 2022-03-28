@@ -36,9 +36,6 @@ public class OrderServiceImpl implements OrderService {
         try {
 			List<OrderDTO> orderList = dao.getAllOrders();
 			
-	       	if(orderList.isEmpty()) {
-	       		throw new ResourceNotFoundException("A lista de pedidos está vazia.");
-	       	}
 			return orderList;
 			
 		} catch (Exception e) {
@@ -59,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
 
 			return order.get();
 			
+		} catch (ResourceNotFoundException e) {
+			throw new ResourceNotFoundException(e.getMessage());
+			
 		} catch (Exception e) {
 			throw new InternalServerErrorException(e.getMessage());
 		}
@@ -73,16 +73,14 @@ public class OrderServiceImpl implements OrderService {
         		throw new BadRequestException("Status inválido.");
         	}
 	       	
-	       	List<OrderDTO> orderListByStatus = dao.getOrderByStatus(status);
-	       	
-	       	if(orderListByStatus.isEmpty()) {
-	       		throw new ResourceNotFoundException("Não foram localizados pedidos com este status.");
-	       	}
+	       	List<OrderDTO> orderListByStatus = dao.getOrderByStatus(status);	    
 			
 	       	return orderListByStatus;
+	       	
+		} catch (BadRequestException e) {
+			throw new BadRequestException(e.getMessage());
 			
-    	}catch(Exception e) {
-    		
+    	}catch(Exception e) {    		
     		throw new InternalServerErrorException(e.getMessage());
     		
     	}    		
@@ -120,24 +118,24 @@ public class OrderServiceImpl implements OrderService {
 			}					
 			
 			Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);		
-					
-			if(deliveryPerson.isEmpty()) {
-				throw new ResourceNotFoundException("Pessoa Entregadora não encontrada."); 
-			}		
-			
+				
 			order.get().setDeliveryPerson(deliveryPerson.get());			
 			order.get().setStatus(1);				
 			dao.save(order.get());
 				
 			return;
+		
+		} catch (BadRequestException e) {
+			throw new BadRequestException(e.getMessage());
 			
-		}catch(Exception e) {
+		} catch (ResourceNotFoundException e) {
+			throw new ResourceNotFoundException(e.getMessage());
 			
+		}catch(Exception e) {			
 			throw new InternalServerErrorException(e.getMessage());					
 			
 		}
 	}
-
 
 
 	@Override
@@ -156,8 +154,6 @@ public class OrderServiceImpl implements OrderService {
 				throw new BadRequestException("Pedido não pode ser cancelado.");
 			}
 			
-			System.out.println(currentOrder);
-			
 			Optional<Order> order = dao.findById(currentOrder.get().getId());
 			
 			order.get().setStatus(3);
@@ -165,11 +161,12 @@ public class OrderServiceImpl implements OrderService {
 			
 			return;
 			
-		} catch (Exception e) {
+		} catch (BadRequestException e) {
+			throw new BadRequestException(e.getMessage());
 			
+		} catch (Exception e) {			
 			throw new InternalServerErrorException(e.getMessage());		
-		}
-		
+		}	
 		
 	}
 
@@ -196,15 +193,14 @@ public class OrderServiceImpl implements OrderService {
 			dao.save(order.get());
 			
 			return;
+		
+		} catch (BadRequestException e) {
+			throw new BadRequestException(e.getMessage());
 			
-		} catch (Exception e) {
-			
+		} catch (Exception e) {			
 			throw new InternalServerErrorException(e.getMessage());		
 		}
 		
 	}
-
-
-
 
 }

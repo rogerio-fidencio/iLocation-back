@@ -43,8 +43,7 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     		
     		if(currentOptionalOrderDTO.isEmpty()) {
     			throw new BadRequestException("A pessoa entregadora não possui pedido em andamento.");        
-    		}
-    		
+    		}    		
     		
     		OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
     		
@@ -54,6 +53,9 @@ public class GeoLocationServiceImpl implements GeoLocationService {
             
             return dao.save(newGeoLocation);
             
+    	} catch (BadRequestException e) {
+			throw new BadRequestException(e.getMessage());
+            
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
         }
@@ -61,13 +63,11 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
     @Override
     public Page<GeoLocationDTO> getGeoLocationPageByOrderID(Integer orderID, Pageable pageable) {
+    	
         try {
             Page<GeoLocationDTO> geoLocationDTOList = dao.getGeolocationPageByOrderID(orderID, pageable);
-
-            if (geoLocationDTOList.isEmpty()) {
-                throw new BadRequestException("Lista de geolocalização vazia.");
-            };
-            return geoLocationDTOList;
+            
+            return geoLocationDTOList;            
 
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
