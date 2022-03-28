@@ -1,13 +1,5 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.DTO.OrderDTO;
@@ -18,6 +10,13 @@ import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 import br.com.verbososcorp.ilocation.util.Project;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @Primary

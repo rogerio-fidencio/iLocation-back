@@ -1,14 +1,13 @@
 package br.com.verbososcorp.ilocation.DAO;
 
-import java.util.List;
-import java.util.Optional;
-
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
+import br.com.verbososcorp.ilocation.models.Order;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.models.Order;
+import java.util.List;
+import java.util.Optional;
 
 public interface OrderDAO extends CrudRepository<Order, Integer> {
 	

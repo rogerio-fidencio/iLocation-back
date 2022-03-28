@@ -2,7 +2,6 @@ package br.com.verbososcorp.ilocation.services.interfaces;
 
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

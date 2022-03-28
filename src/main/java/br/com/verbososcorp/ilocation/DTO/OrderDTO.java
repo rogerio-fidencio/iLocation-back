@@ -1,8 +1,8 @@
 package br.com.verbososcorp.ilocation.DTO;
 
-import java.time.LocalDateTime;
-
 import br.com.verbososcorp.ilocation.models.Order;
+
+import java.time.LocalDateTime;
 
 public class OrderDTO {
 	
