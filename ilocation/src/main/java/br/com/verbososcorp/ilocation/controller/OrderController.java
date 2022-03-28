@@ -4,16 +4,15 @@ import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 import java.util.List;
 
-import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
-import br.com.verbososcorp.ilocation.models.GeoLocation;
-import br.com.verbososcorp.ilocation.models.Order;
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 
 @RestController
@@ -24,32 +23,39 @@ public class OrderController {
 	private OrderService service;
 				
 	@GetMapping("")
-	public ResponseEntity<List<Order>> getAll(){			
+	public ResponseEntity<List<OrderDTO>> getAll(){			
 		return ResponseEntity.ok(service.getAll());
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Order> getByID(@PathVariable Integer id){
-		return ResponseEntity.ok(service.getByID(id));
-	}
-	
-	@GetMapping("/getTracking/{id}")
-	public ResponseEntity<List<GeoLocation>> getTracking(@PathVariable Integer id){
-		return ResponseEntity.ok(service.getTracking(id));
-	}
+	public ResponseEntity<OrderDTO> getOrderByID(@PathVariable Integer id){
+		return ResponseEntity.ok(service.getOrderByID(id));
+	}	
+
 	
 	@GetMapping("/status/{status}")
-	public ResponseEntity<List<Order>> getByStatus(@PathVariable Integer status){
-		return ResponseEntity.ok(service.getByStatus(status));
+	public ResponseEntity<List<OrderDTO>> getOrderByStatus(@PathVariable Integer status){
+		return ResponseEntity.ok(service.getOrderByStatus(status));
 	}
 
-	@PatchMapping("/status")
-	public ResponseEntity<Order> changeStatus(@RequestBody @Validated OrderChangeStatusFormDTO changeStatusForm){		
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.changeStatus(changeStatusForm));
-	}
 	
 	@PatchMapping("/assign/{orderID}")
-	public ResponseEntity<Order> assignDeliveryPerson(@PathVariable Integer orderID){
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.assignDeliveryPerson(orderID));
+	public ResponseEntity<?> assignDeliveryPerson(@PathVariable Integer orderID){
+		service.assignDeliveryPerson(orderID);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	@PatchMapping("/status/cancelled")
+	public ResponseEntity<?> changeStatusToCancelled(){		
+		service.changeStatusToCancelled();
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	@PatchMapping("/status/delivered")
+	public ResponseEntity<?> changeStatusToDelivered(){		
+		service.changeStatusToDelivered();
+		return ResponseEntity.noContent().build();
 	}
 }

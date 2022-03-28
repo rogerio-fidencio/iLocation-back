@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.verbososcorp.ilocation.models.GeoLocation;
 
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(BASE_URL + "/geolocation")
@@ -23,9 +22,15 @@ public class GeoLocationController {
 	GeoLocationService service;
 	
 	@PutMapping()
-	public ResponseEntity<GeoLocation> registerGeoLocation(@RequestBody GeoLocation geoLocation)  {
-		GeoLocation newGeolocation = service.register(geoLocation);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newGeolocation);
+	public ResponseEntity<?> registerGeoLocation(@RequestBody GeoLocation geoLocation)  {
+		Object res = service.register(geoLocation);
+		
+		if (res == null) {
+			return ResponseEntity.status(500).build();
+			//TODO verificar que erro colocar aqui. Exception?
+		}
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	@GetMapping("/{orderID}")

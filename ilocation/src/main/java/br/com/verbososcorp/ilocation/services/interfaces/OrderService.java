@@ -2,22 +2,21 @@ package br.com.verbososcorp.ilocation.services.interfaces;
 
 import java.util.List;
 
-import br.com.verbososcorp.ilocation.DTO.OrderChangeStatusFormDTO;
-import br.com.verbososcorp.ilocation.models.GeoLocation;
-import br.com.verbososcorp.ilocation.models.Order;
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
+
 
 public interface OrderService {
 	
-	public List<Order> getAll();
+	public List<OrderDTO> getAll();
 	
-	public Order getByID(Integer id);
-	
-	public List<GeoLocation> getTracking(Integer id);
-	
-	public List<Order> getByStatus(Integer status);
+	public OrderDTO getOrderByID(Integer id);
 
-	public Order changeStatus(OrderChangeStatusFormDTO changeStatusForm);
+	public List<OrderDTO> getOrderByStatus(Integer status);
 	
-	public Order assignDeliveryPerson(Integer orderID);
+	public void assignDeliveryPerson(Integer orderID);	
+	
+	public void changeStatusToCancelled();
+	
+	public void changeStatusToDelivered();
 	
 }
