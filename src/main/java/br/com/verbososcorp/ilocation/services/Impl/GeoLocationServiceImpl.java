@@ -27,32 +27,34 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
     @Autowired
     private GeoLocationDAO dao;
-    
+
     @Autowired
     private OrderDAO orderDAO;
 
     @Override
     public GeoLocation register(GeoLocation newGeoLocation) {
- 		//TODO validação do tipo de dado que está recebendo do corpo da requisição
-        
-    	try {
+        //TODO validação do tipo de dado que está recebendo do corpo da requisição
+
+        try {
             Integer userID = Project.getContextData().getId();
-    		
-    		Optional<OrderDTO> currentOptionalOrderDTO = orderDAO.getCurrentOrderByDeliveryPersonId(userID);
-    		
-    		if(currentOptionalOrderDTO.isEmpty()) {
-    			throw new BadRequestException("A pessoa entregadora não possui pedido em andamento.");        
-    		}
-    		
-    		
-    		OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
-    		
-    		Order currentOrder = (Order)orderDAO.findById(currentOrderDTO.getId()).get();
-    		
-    		newGeoLocation.setOrder(currentOrder);        	 
-            
+
+            Optional<OrderDTO> currentOptionalOrderDTO = orderDAO.getCurrentOrderByDeliveryPersonId(userID);
+
+            if (currentOptionalOrderDTO.isEmpty()) {
+                throw new BadRequestException("A pessoa entregadora não possui pedido em andamento.");
+            }
+
+            OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
+
+            Order currentOrder = (Order) orderDAO.findById(currentOrderDTO.getId()).get();
+
+            newGeoLocation.setOrder(currentOrder);
+
             return dao.save(newGeoLocation);
-            
+
+        } catch (BadRequestException e) {
+            throw new BadRequestException(e.getMessage());
+
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
         }
@@ -60,13 +62,10 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
     @Override
     public Page<GeoLocationDTO> getGeoLocationPageByOrderID(Integer orderID, Pageable pageable) {
-        try {
-            Page<GeoLocationDTO> geoLocationDTOList = dao.getGeolocationPageByOrderID(orderID, pageable);
 
-            if (geoLocationDTOList.isEmpty()) {
-                throw new BadRequestException("Lista de geolocalização vazia.");
-            };
-            return geoLocationDTOList;
+        try {
+
+            return dao.getGeolocationPageByOrderID(orderID, pageable);
 
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
