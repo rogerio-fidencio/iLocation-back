@@ -2,9 +2,8 @@ package br.com.verbososcorp.ilocation.security;
 
 
 
-import br.com.verbososcorp.ilocation.Filters.CustomAuthenticationFilter;
-import br.com.verbososcorp.ilocation.Filters.CustomAuthorizationFilter;
-import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
+import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,13 +11,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
+import br.com.verbososcorp.ilocation.Filters.CustomAuthenticationFilter;
+import br.com.verbososcorp.ilocation.Filters.CustomAuthorizationFilter;
+import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 
 @Configuration
 @EnableWebSecurity
@@ -55,4 +57,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    
+    @Override
+	public void configure(final WebSecurity webSecurity) {
+		webSecurity.ignoring().antMatchers(
+				 	"/v2/api-docs", 
+		            "/swagger-resources/**",  
+		            "/swagger-ui.html", 
+		            "/webjars/**" ,
+		             /*Probably not needed*/ "/swagger.json");
+	}
+
 }
