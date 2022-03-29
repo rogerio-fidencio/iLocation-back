@@ -4,6 +4,7 @@ import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.ErrorMessage;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 import br.com.verbososcorp.ilocation.util.Project;
 import com.auth0.jwt.JWT;
@@ -66,7 +67,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             return authenticationManager.authenticate(authenticationToken);
 
         } catch (IOException e) {
-            throw new BadRequestException("Verifique seus dados e tente novamente!");
+            throw new BadRequestException("Dados incorretos.");
+        } catch (Exception e){
+            throw new InternalServerErrorException(e.getMessage());
         }
     }
 
@@ -104,7 +107,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        ErrorMessage errorMessage = new ErrorMessage(401, new Date(), "Login ou senha invalido.", request.getServletPath());
+        ErrorMessage errorMessage = new ErrorMessage(401, new Date(), "Dados incorretos.", request.getServletPath());
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(401);
         new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);

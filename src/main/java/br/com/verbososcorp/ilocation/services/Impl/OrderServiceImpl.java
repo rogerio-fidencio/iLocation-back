@@ -9,7 +9,6 @@ import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoun
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
-import br.com.verbososcorp.ilocation.util.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+
+import static br.com.verbososcorp.ilocation.util.Project.getContextData;
 
 @Component
 @Primary
@@ -98,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 
         try {
 
-            Integer userID = Project.getContextData().getId();
+            Integer userID = getContextData().getId();
 
             Optional<OrderDTO> orderValidation = dao.getCurrentOrderByDeliveryPersonId(userID);
 
@@ -141,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
     public void changeStatusToCancelled() {
 
         try {
-            Integer userID = Project.getContextData().getId();
+            Integer userID = getContextData().getId();
 
             Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
 
@@ -174,7 +175,7 @@ public class OrderServiceImpl implements OrderService {
     public void changeStatusToDelivered() {
 
         try {
-            Integer userID = Project.getContextData().getId();
+            Integer userID = getContextData().getId();
 
             Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
 
@@ -200,6 +201,27 @@ public class OrderServiceImpl implements OrderService {
             throw new InternalServerErrorException(e.getMessage());
         }
 
+    }
+
+    @Override
+    public List<OrderDTO> getAllByDeliveryPerson() {
+        try {
+            Integer userID = getContextData().getId();
+
+            return dao.getAllByDeliveryPersonId(userID);
+        } catch (Exception e){
+            throw new InternalServerErrorException(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public List<OrderDTO> getAllByOrderStatus() {
+        try {
+            return dao.getAllByStatus(1);
+        }catch (Exception e){
+            throw new InternalServerErrorException(e.getMessage());
+        }
     }
 
 

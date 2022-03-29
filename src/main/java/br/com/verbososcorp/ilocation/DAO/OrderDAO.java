@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderDAO extends CrudRepository<Order, Integer> {
-	
+
+	public List<OrderDTO> getAllByDeliveryPersonId(Integer deliveryPersonID);
+
+	public List<OrderDTO> getAllByStatus(Integer status);
+
 	@Query("select new br.com.verbososcorp.ilocation.DTO.OrderDTO" +
 			"(order.id, order.status, order.deliveryPerson.id)" +
 			" FROM Order as order " +
