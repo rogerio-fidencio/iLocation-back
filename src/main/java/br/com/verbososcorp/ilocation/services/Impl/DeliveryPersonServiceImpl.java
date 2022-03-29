@@ -35,7 +35,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
     @Override
     public UserDetails loadUserByUsername(String emailOrCPF) throws UsernameNotFoundException {
-        System.out.println("oi loadby username");
         Optional<DeliveryPersonAuthDTO> userOptional = dao.findDeliveryPersonAuthDTOByEmailOrCPF(emailOrCPF);
 
         if (userOptional.isEmpty()) {
@@ -96,7 +95,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
     @Override
     public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrCPF(String emailOrCPF) {
-        System.out.println("oi, load by auth");
+
         try {
             Optional<DeliveryPersonDTO> deliveryPersonOptional = dao.findDeliveryPersonDTOByEmailOrCPF(emailOrCPF);
             if (deliveryPersonOptional.isEmpty()) {

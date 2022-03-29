@@ -21,7 +21,17 @@ public class OrderController {
 	public ResponseEntity<List<OrderDTO>> getAll(){			
 		return ResponseEntity.ok(service.getAll());
 	}
-	
+
+	@GetMapping("/currentDeliveryPersonDeliveryPerson")
+	public ResponseEntity<List<OrderDTO>> getAllByDelivyPerson(){
+		return ResponseEntity.ok(service.getAllByDeliveryPerson());
+	}
+
+	@GetMapping("/opens")
+	public ResponseEntity<List<OrderDTO>> getAllbyOpenStatus(){
+		return ResponseEntity.ok(service.getAllByOrderStatus());
+	}
+
 	@GetMapping("{id}")
 	public ResponseEntity<OrderDTO> getOrderByID(@PathVariable Integer id){
 		return ResponseEntity.ok(service.getOrderByID(id));
@@ -53,4 +63,5 @@ public class OrderController {
 		service.changeStatusToDelivered();
 		return ResponseEntity.noContent().build();
 	}
+
 }
