@@ -1,9 +1,9 @@
 package br.com.verbososcorp.ilocation.Filters;
 
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.ErrorMessage;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
-import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 import br.com.verbososcorp.ilocation.util.Project;
 import com.auth0.jwt.JWT;
@@ -58,10 +58,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try{
-            DeliveryPerson user = new ObjectMapper().readValue(request.getInputStream(), DeliveryPerson.class);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+            DeliveryPersonAuthDTO user = new ObjectMapper().readValue(request.getInputStream(), DeliveryPersonAuthDTO.class);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmailOrCPF(), user.getPassword());
 
-            this.userDTO = deliveryPersonService.getByEmailForAuth(user.getEmail());
+            userDTO = deliveryPersonService.findDeliveryPersonDTOByEmailOrCPF(user.getEmailOrCPF());
 
             return authenticationManager.authenticate(authenticationToken);
 
