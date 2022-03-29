@@ -18,5 +18,8 @@ public interface OrderService {
 	public void changeStatusToCancelled();
 	
 	public void changeStatusToDelivered();
-	
+
+	public List<OrderDTO> getAllByDeliveryPerson();
+
+	public List<OrderDTO> getAllByOrderStatus();
 }

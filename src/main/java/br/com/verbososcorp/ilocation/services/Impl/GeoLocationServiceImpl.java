@@ -33,7 +33,6 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
     @Override
     public GeoLocation register(GeoLocation newGeoLocation) {
-        //TODO validação do tipo de dado que está recebendo do corpo da requisição
 
         try {
             Integer userID = Project.getContextData().getId();
@@ -64,9 +63,7 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     public Page<GeoLocationDTO> getGeoLocationPageByOrderID(Integer orderID, Pageable pageable) {
 
         try {
-
             return dao.getGeolocationPageByOrderID(orderID, pageable);
-
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
         }
