@@ -1,30 +1,37 @@
 package br.com.verbososcorp.ilocation.DTO;
 
 public class DeliveryPersonAuthDTO {
-    String emailOrCPF;
+    String emailOrPhone;
     String password;
 
     public DeliveryPersonAuthDTO() {
     }
+    
+    
 
-    public DeliveryPersonAuthDTO(String emailOrCPF, String password) {
-        this.emailOrCPF = emailOrCPF;
-        this.password = password;
-    }
+	public DeliveryPersonAuthDTO(String emailOrPhone, String password) {
+		super();
+		this.emailOrPhone = emailOrPhone;
+		this.password = password;
+	}
 
-    public String getEmailOrCPF() {
-        return emailOrCPF;
-    }
 
-    public void setEmailOrCPF(String emailOrCPF) {
-        this.emailOrCPF = emailOrCPF;
-    }
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmailOrPhone() {
+		return emailOrPhone;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmailOrPhone(String emailOrPhone) {
+		this.emailOrPhone = emailOrPhone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 }
