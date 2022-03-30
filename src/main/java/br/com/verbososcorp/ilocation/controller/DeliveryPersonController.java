@@ -1,6 +1,7 @@
 package br.com.verbososcorp.ilocation.controller;
 
 
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.Impl.DeliveryPersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,13 @@ public class DeliveryPersonController {
 
     @PostMapping()
     public ResponseEntity<DeliveryPerson> putDeliveryPerson(@Validated @RequestBody DeliveryPerson deliveryPerson){
-        DeliveryPerson newDeliveryPerson = service.register(deliveryPerson);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newDeliveryPerson);
+        try {
+		//	DeliveryPerson newDeliveryPerson = service.register(deliveryPerson);
+			return ResponseEntity.status(HttpStatus.CREATED).build();
+			
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
+			
+		}
     }
 }

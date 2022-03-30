@@ -1,12 +1,9 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
-import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
-import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
-import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
-import br.com.verbososcorp.ilocation.models.DeliveryPerson;
-import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -17,9 +14,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
+import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotFoundException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
+import br.com.verbososcorp.ilocation.models.DeliveryPerson;
+import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 
 
 @Component
@@ -34,8 +36,8 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String emailOrCPF) throws UsernameNotFoundException {
-        Optional<DeliveryPersonAuthDTO> userOptional = dao.findDeliveryPersonAuthDTOByEmailOrCPF(emailOrCPF);
+    public UserDetails loadUserByUsername(String emailOrPhone) throws UsernameNotFoundException {
+        Optional<DeliveryPersonAuthDTO> userOptional = dao.findDeliveryPersonAuthDTOByEmailOrPhone(emailOrPhone);
 
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("Dados incorretos.");
@@ -43,43 +45,31 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
         DeliveryPersonAuthDTO user = userOptional.get();
 
-        //aqui pegar as roles/permitions
-
-        return new User(user.getEmailOrCPF(), user.getPassword(), new ArrayList<>()); // permitions iriam no array vazio
+        return new User(user.getEmailOrPhone(), user.getPassword(), new ArrayList<>());
     }
 
 
     @Override
     public DeliveryPerson register(DeliveryPerson newDeliveryPerson) {
+ 
+        newDeliveryPerson.setPassword(passwordEncoder.encode(newDeliveryPerson.getPassword()));
+        
+        return dao.save(newDeliveryPerson);
 
-        try {
-            newDeliveryPerson.setPassword(passwordEncoder.encode(newDeliveryPerson.getPassword()));
-
-            dao.save(newDeliveryPerson);
-            return newDeliveryPerson;
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
     }
+    
 
     @Override
-    public DeliveryPerson getByEmail(String email) {
-        try {
-            Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+    public DeliveryPerson getByEmail(String email) throws DeliveryPersonNotFoundException {
+        
+        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
 
-            if (deliveryPersonOptional.isEmpty()) {
-                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
-            }
-
-            return deliveryPersonOptional.get();
-
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        if (deliveryPersonOptional.isEmpty()) {
+            throw new DeliveryPersonNotFoundException();
         }
+
+        return deliveryPersonOptional.get();
+            
     }
 
     @Override
@@ -92,12 +82,13 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
             throw new InternalServerErrorException(e.getMessage());
         }
     }
+    
 
     @Override
-    public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrCPF(String emailOrCPF) {
-
+    public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrPhone(String emailOrPhone) {
+    	//TODO revisar os catches.
         try {
-            Optional<DeliveryPersonDTO> deliveryPersonOptional = dao.findDeliveryPersonDTOByEmailOrCPF(emailOrCPF);
+            Optional<DeliveryPersonDTO> deliveryPersonOptional = dao.findDeliveryPersonDTOByEmailOrPhone(emailOrPhone);
             if (deliveryPersonOptional.isEmpty()) {
                 throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
             }
@@ -109,9 +100,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
 
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
+        } 
     }
 
 }

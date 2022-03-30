@@ -1,5 +1,6 @@
 package br.com.verbososcorp.ilocation.controller;
 
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.models.Customer;
 import br.com.verbososcorp.ilocation.services.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,13 @@ public class CustomerController {
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> getall(){
-        return ResponseEntity.ok(service.getall());
+        try {
+			return ResponseEntity.ok(service.getall());
+			
+		} catch (Exception e) {
+			
+			throw new InternalServerErrorException(e.getMessage());
+			
+		}
     }
 }
