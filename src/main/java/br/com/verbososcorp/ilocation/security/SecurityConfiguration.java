@@ -11,12 +11,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.com.verbososcorp.ilocation.Filters.CustomAuthenticationFilter;
 import br.com.verbososcorp.ilocation.Filters.CustomAuthorizationFilter;
@@ -25,6 +27,7 @@ import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -42,14 +45,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().cors()
+        		.and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, BASE_URL + "/login").permitAll()
                 .anyRequest().authenticated()
-                .and().cors();
-
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), deliveryPersonService));
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .and() 
+                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), deliveryPersonService))
+                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
@@ -58,14 +62,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
     
-    @Override
-	public void configure(final WebSecurity webSecurity) {
-		webSecurity.ignoring().antMatchers(
-				 	"/v2/api-docs", 
-		            "/swagger-resources/**",  
-		            "/swagger-ui.html", 
-		            "/webjars/**" ,
-		             /*Probably not needed*/ "/swagger.json");
-	}
+    @Configuration
+    public static class CorsConfiguration implements WebMvcConfigurer {
 
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:3000") // adicionar url do deploy de front
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+        }
+    }
 }
