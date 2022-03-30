@@ -100,7 +100,9 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
 
-        } 
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
+        }
     }
 
 }
