@@ -60,16 +60,22 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
     
 
     @Override
-    public DeliveryPerson getByEmail(String email) throws DeliveryPersonNotFoundException {
-        
-        Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
+    public DeliveryPerson getByEmail(String email) {
+        try {
+            Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
 
-        if (deliveryPersonOptional.isEmpty()) {
-            throw new DeliveryPersonNotFoundException();
+            if (deliveryPersonOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+            }
+
+            return deliveryPersonOptional.get();
+
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+
+        } catch (Exception e) {
+            throw new InternalServerErrorException(e.getMessage());
         }
-
-        return deliveryPersonOptional.get();
-            
     }
 
     @Override
