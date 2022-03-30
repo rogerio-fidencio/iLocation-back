@@ -27,6 +27,7 @@ import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
 
     @Autowired
     private UserDetailsService userDetailsService;
