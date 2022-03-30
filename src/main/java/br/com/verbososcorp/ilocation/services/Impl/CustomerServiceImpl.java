@@ -21,16 +21,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public List<Customer> getall() {
-    	
-        try {
-			List<Customer> customerList = (List<Customer>) dao.findAll();
-			return customerList;
-			
-		} catch (Exception e) {
-			
-			throw new InternalServerErrorException(e.getMessage());
-		}
+    public List<Customer> getall() {    	
+ 
+		List<Customer> customerList = (List<Customer>) dao.findAll();
+		return customerList;			
+
     }
 }
 

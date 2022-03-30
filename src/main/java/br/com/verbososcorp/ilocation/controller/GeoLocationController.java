@@ -1,6 +1,11 @@
 package br.com.verbososcorp.ilocation.controller;
 
 import br.com.verbososcorp.ilocation.DTO.GeoLocationDTO;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.NoOrderAtributedToDeliveryPersonException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.models.GeoLocation;
 import br.com.verbososcorp.ilocation.services.interfaces.GeoLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +26,35 @@ public class GeoLocationController {
 	GeoLocationService service;
 	
 	@PutMapping()
-	public ResponseEntity<?> registerGeoLocation(@RequestBody GeoLocation geoLocation)  {
-		Object res = service.register(geoLocation);
+	public ResponseEntity<?> registerGeoLocation(@RequestBody GeoLocation geoLocation){
 		
-		if (res == null) {
-			return ResponseEntity.status(500).build();
-			//TODO verificar que erro colocar aqui. Exception?
+		try {
+			service.register(geoLocation);
+			
+		} catch (NoOrderAtributedToDeliveryPersonException e) {
+			throw new BadRequestException(e.getMessage());
+			
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
+	
 	@GetMapping("/{orderID}")
-	public ResponseEntity<Page<GeoLocationDTO>> getAllGeoLocationsByOrderID(@PathVariable Integer orderID, Pageable pageable){
-		Page<GeoLocationDTO> geoLocationDTOList = (Page<GeoLocationDTO>) service.getGeoLocationPageByOrderID(orderID, pageable);
+	public ResponseEntity<Page<GeoLocationDTO>> getAllGeoLocationsByOrderID(@PathVariable Integer orderID, Pageable pageable) {
 
-		return ResponseEntity.ok(geoLocationDTOList);
+		try {
+			Page<GeoLocationDTO> geoLocationDTOList = (Page<GeoLocationDTO>) service.getGeoLocationPageByOrderID(orderID, pageable);
+			return ResponseEntity.ok(geoLocationDTOList);
+			
+		} catch (OrderNotFoundException e) {			
+			throw new ResourceNotFoundException(e.getMessage());
+			
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
+		}
 	}
 	
 }

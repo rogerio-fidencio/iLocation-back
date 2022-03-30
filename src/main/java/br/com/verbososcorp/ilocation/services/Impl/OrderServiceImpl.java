@@ -1,23 +1,27 @@
 package br.com.verbososcorp.ilocation.services.Impl;
 
-import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
-import br.com.verbososcorp.ilocation.DAO.OrderDAO;
-import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
-import br.com.verbososcorp.ilocation.models.DeliveryPerson;
-import br.com.verbososcorp.ilocation.models.Order;
-import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import static br.com.verbososcorp.ilocation.util.Project.getContextData;
 
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.verbososcorp.ilocation.util.Project.getContextData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
+import br.com.verbososcorp.ilocation.DAO.OrderDAO;
+import br.com.verbososcorp.ilocation.DTO.OrderDTO;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotAvailableException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InvalidStatusException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.NoOrderAtributedToDeliveryPersonException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeCancelledException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeConcludedException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotAvailableException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
+import br.com.verbososcorp.ilocation.models.DeliveryPerson;
+import br.com.verbososcorp.ilocation.models.Order;
+import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 
 @Component
 @Primary
@@ -32,58 +36,35 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getAll() {
-
-        try {
             List<OrderDTO> orderList = dao.getAllOrders();
-
             return orderList;
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
-
     }
 
 
     @Override
-    public OrderDTO getOrderByID(Integer id) {
-        try {
-            Optional<OrderDTO> order = dao.getOrderById(id);
+    public OrderDTO getOrderByID(Integer id) throws OrderNotFoundException  {
+    	
+        Optional<OrderDTO> order = dao.getOrderById(id);
 
-            if (order.isEmpty()) {
-                throw new ResourceNotFoundException("Pedido não encontrado.");
-            }
-
-            return order.get();
-
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException();
         }
-    }
+
+        return order.get();
+
+    }   
 
 
     @Override
-    public List<OrderDTO> getOrderByStatus(Integer status) {
-
-        try {
-            if (status > 3 || status < 0) {
-                throw new BadRequestException("Status inválido.");
-            }
-
-            List<OrderDTO> orderListByStatus = dao.getOrderByStatus(status);
-
-            return orderListByStatus;
-
-        } catch (BadRequestException e) {
-            throw new BadRequestException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-
+    public List<OrderDTO> getOrderByStatus(Integer status) throws InvalidStatusException {
+       
+        if (status > 3 || status < 0) {
+            throw new InvalidStatusException();
         }
+
+        List<OrderDTO> orderListByStatus = dao.getOrderByStatus(status);
+
+        return orderListByStatus; 
 
     }
 
@@ -95,134 +76,92 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void assignDeliveryPerson(Integer orderID) {
+    public Order assignDeliveryPerson(Integer orderID) throws DeliveryPersonNotAvailableException, OrderNotFoundException, OrderNotAvailableException {
+ 
+        Integer userID = getContextData().getId();
 
-        try {
+        Optional<OrderDTO> orderValidation = dao.getCurrentOrderByDeliveryPersonId(userID);
 
-            Integer userID = getContextData().getId();
-
-            Optional<OrderDTO> orderValidation = dao.getCurrentOrderByDeliveryPersonId(userID);
-
-            if (orderValidation.isPresent()) {
-                throw new BadRequestException("Entregador não disponível para atribuição.");
-            }
-
-            Optional<Order> order = dao.findById(orderID);
-
-            if (order.isEmpty()) {
-                throw new ResourceNotFoundException("Pedido não encontrado.");
-            }
-
-            if (order.get().getStatus() != 0) {
-                throw new BadRequestException("Pedido não disponível para atribuição.");
-            }
-
-            Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);
-
-            order.get().setDeliveryPerson(deliveryPerson.get());
-            order.get().setStatus(1);
-            dao.save(order.get());
-
-            return;
-
-        } catch (BadRequestException e) {
-            throw new BadRequestException(e.getMessage());
-
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-
+        if (orderValidation.isPresent()) {
+            throw new DeliveryPersonNotAvailableException();
         }
-    }
 
+        Optional<Order> order = dao.findById(orderID);
 
-    @Override
-    public void changeStatusToCancelled() {
-
-        try {
-            Integer userID = getContextData().getId();
-
-            Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
-
-            if (currentOrder.isEmpty()) {
-                throw new BadRequestException("Nenhum pedido está atribuído a este entregador.");
-            }
-
-            if (currentOrder.get().getStatus() != 1) {
-                throw new BadRequestException("Pedido não pode ser cancelado.");
-            }
-
-            Optional<Order> order = dao.findById(currentOrder.get().getId());
-
-            order.get().setStatus(3);
-            dao.save(order.get());
-
-            return;
-
-        } catch (BadRequestException e) {
-            throw new BadRequestException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException();
         }
+
+        if (order.get().getStatus() != 0) {
+            throw new OrderNotAvailableException();
+        }
+
+        Optional<DeliveryPerson> deliveryPerson = deliveryPersonDAO.findById(userID);
+
+        order.get().setDeliveryPerson(deliveryPerson.get());
+        order.get().setStatus(1);        
+
+        return dao.save(order.get());
 
     }
 
 
     @Override
-    public void changeStatusToDelivered() {
+    public Order changeStatusToCancelled() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeCancelledException {
+    
+        Integer userID = getContextData().getId();
 
-        try {
-            Integer userID = getContextData().getId();
+        Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
 
-            Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
-
-            if (currentOrder.isEmpty()) {
-                throw new BadRequestException("Nenhum pedido está atribuído a este entregador.");
-            }
-
-            if (currentOrder.get().getStatus() != 1) {
-                throw new BadRequestException("Status do pedido não pode ser alterado para 'Entregue'.");
-            }
-
-            Optional<Order> order = dao.findById(currentOrder.get().getId());
-
-            order.get().setStatus(2);
-            dao.save(order.get());
-
-            return;
-
-        } catch (BadRequestException e) {
-            throw new BadRequestException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        if (currentOrder.isEmpty()) {
+            throw new NoOrderAtributedToDeliveryPersonException();
         }
 
+        if (currentOrder.get().getStatus() != 1) {
+            throw new OrderCannotBeCancelledException();
+        }
+
+        Optional<Order> order = dao.findById(currentOrder.get().getId());
+
+        order.get().setStatus(3);        
+
+        return dao.save(order.get());
     }
+
 
     @Override
-    public List<OrderDTO> getAllByDeliveryPerson() {
-        try {
-            Integer userID = getContextData().getId();
+    public Order changeStatusToDelivered() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeConcludedException {
+  
+        Integer userID = getContextData().getId();
 
-            return dao.getAllByDeliveryPersonId(userID);
-        } catch (Exception e){
-            throw new InternalServerErrorException(e.getMessage());
+        Optional<OrderDTO> currentOrder = dao.getCurrentOrderByDeliveryPersonId(userID);
+
+        if (currentOrder.isEmpty()) {
+            throw new NoOrderAtributedToDeliveryPersonException();
         }
 
-    }
+        if (currentOrder.get().getStatus() != 1) {
+            throw new OrderCannotBeConcludedException();
+        }
 
+        Optional<Order> order = dao.findById(currentOrder.get().getId());
+        order.get().setStatus(2);            
+        return dao.save(order.get());
+
+    }
+    
+    
     @Override
-    public List<OrderDTO> getAllByOrderStatus() {
-        try {
-            return dao.getAllByStatus(1);
-        }catch (Exception e){
-            throw new InternalServerErrorException(e.getMessage());
-        }
+    public List<OrderDTO> getAllbyAvailableStatus() {  
+        return dao.getAllByStatus(1);
     }
+
+    
+    @Override
+    public List<OrderDTO> getAllByDeliveryPerson() { 
+        Integer userID = getContextData().getId();
+        return dao.getAllByDeliveryPersonId(userID);
+    }  
 
 
 }

@@ -4,8 +4,8 @@ import br.com.verbososcorp.ilocation.DAO.GeoLocationDAO;
 import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.DTO.GeoLocationDTO;
 import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.NoOrderAtributedToDeliveryPersonException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
 import br.com.verbososcorp.ilocation.models.GeoLocation;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.GeoLocationService;
@@ -32,41 +32,36 @@ public class GeoLocationServiceImpl implements GeoLocationService {
     private OrderDAO orderDAO;
 
     @Override
-    public GeoLocation register(GeoLocation newGeoLocation) {
+    public GeoLocation register(GeoLocation newGeoLocation) throws NoOrderAtributedToDeliveryPersonException {
+       
+        Integer userID = Project.getContextData().getId();
 
-        try {
-            Integer userID = Project.getContextData().getId();
+        Optional<OrderDTO> currentOptionalOrderDTO = orderDAO.getCurrentOrderByDeliveryPersonId(userID);
 
-            Optional<OrderDTO> currentOptionalOrderDTO = orderDAO.getCurrentOrderByDeliveryPersonId(userID);
-
-            if (currentOptionalOrderDTO.isEmpty()) {
-                throw new BadRequestException("A pessoa entregadora não possui pedido em andamento.");
-            }
-
-            OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
-
-            Order currentOrder = (Order) orderDAO.findById(currentOrderDTO.getId()).get();
-
-            newGeoLocation.setOrder(currentOrder);
-
-            return dao.save(newGeoLocation);
-
-        } catch (BadRequestException e) {
-            throw new BadRequestException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        if (currentOptionalOrderDTO.isEmpty()) {
+            throw new NoOrderAtributedToDeliveryPersonException();
         }
+
+        OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
+
+        Order currentOrder = (Order) orderDAO.findById(currentOrderDTO.getId()).get();
+
+        newGeoLocation.setOrder(currentOrder);
+
+        return dao.save(newGeoLocation);
     }
 
     @Override
-    public Page<GeoLocationDTO> getGeoLocationPageByOrderID(Integer orderID, Pageable pageable) {
+    public Page<GeoLocationDTO> getGeoLocationPageByOrderID(Integer orderID, Pageable pageable) throws OrderNotFoundException {
 
-        try {
-            return dao.getGeolocationPageByOrderID(orderID, pageable);
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
+        Optional<OrderDTO> order = orderDAO.getOrderById(orderID);
+
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException();
         }
+        
+       return dao.getGeolocationPageByOrderID(orderID, pageable);
+      
     }
 
 }

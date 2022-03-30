@@ -1,10 +1,8 @@
 package br.com.verbososcorp.ilocation.exceptions;
 
 
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.AuthExeption;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
+import java.util.Date;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,11 +11,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Date;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.AuthExeption;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 
 @ControllerAdvice
-public class ControllerExeptionHandler {
-
+public class ControllerExceptionHandler {
+	
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorMessage> resourseNotFoundException(ResourceNotFoundException e, WebRequest request) {
         ErrorMessage message = new ErrorMessage(

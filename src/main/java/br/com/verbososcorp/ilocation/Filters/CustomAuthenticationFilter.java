@@ -60,9 +60,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try{
             DeliveryPersonAuthDTO user = new ObjectMapper().readValue(request.getInputStream(), DeliveryPersonAuthDTO.class);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmailOrCPF(), user.getPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmailOrPhone(), user.getPassword());
 
-            userDTO = deliveryPersonService.findDeliveryPersonDTOByEmailOrCPF(user.getEmailOrCPF());
+            userDTO = deliveryPersonService.findDeliveryPersonDTOByEmailOrPhone(user.getEmailOrPhone());
 
             return authenticationManager.authenticate(authenticationToken);
 

@@ -17,14 +17,14 @@ public interface DeliveryPersonDAO extends CrudRepository<DeliveryPerson, Intege
     @Query("SELECT new br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO " +
             "(deliveryPerson.email, deliveryPerson.password) " +
             "FROM DeliveryPerson as deliveryPerson " +
-            "WHERE deliveryPerson.email = :emailOrCPF " +
-            "OR deliveryPerson.cpf = :emailOrCPF")
-    public Optional<DeliveryPersonAuthDTO> findDeliveryPersonAuthDTOByEmailOrCPF(@Param("emailOrCPF") String emailOrCPF);
+            "WHERE deliveryPerson.email = :emailOrPhone " +
+            "OR deliveryPerson.phone = :emailOrPhone")
+    public Optional<DeliveryPersonAuthDTO> findDeliveryPersonAuthDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
 
     @Query("SELECT new br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO " +
             "(deliveryPerson.id, deliveryPerson.name, deliveryPerson.phone) " +
             "FROM DeliveryPerson as deliveryPerson " +
-            "WHERE deliveryPerson.email = :emailOrCPF " +
-            "OR deliveryPerson.cpf = :emailOrCPF")
-    public Optional<DeliveryPersonDTO> findDeliveryPersonDTOByEmailOrCPF(@Param("emailOrCPF") String emailOrCPF);
+            "WHERE deliveryPerson.email = :emailOrPhone " +
+            "OR deliveryPerson.phone = :emailOrPhone")
+    public Optional<DeliveryPersonDTO> findDeliveryPersonDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
 }
