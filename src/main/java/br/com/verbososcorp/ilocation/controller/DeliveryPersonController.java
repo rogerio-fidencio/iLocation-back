@@ -25,11 +25,12 @@ public class DeliveryPersonController {
     @PostMapping()
     public ResponseEntity<DeliveryPerson> putDeliveryPerson(@Validated @RequestBody DeliveryPerson deliveryPerson){
         try {
-		//	DeliveryPerson newDeliveryPerson = service.register(deliveryPerson);
+			service.register(deliveryPerson);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 			
 		} catch (Exception e) {
 			throw new InternalServerErrorException(e.getMessage());
+			
 			
 		}
     }

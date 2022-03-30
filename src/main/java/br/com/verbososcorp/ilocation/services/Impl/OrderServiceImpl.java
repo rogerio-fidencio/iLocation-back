@@ -153,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
     
     @Override
     public List<OrderDTO> getAllbyAvailableStatus() {  
-        return dao.getAllByStatus(1);
+        return dao.getOrderByStatus(0);
     }
 
     
