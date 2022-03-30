@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,7 +77,7 @@ public class OrderController {
 
 	
 	@PatchMapping("/assign/{orderID}")
-	public ResponseEntity<?> assignDeliveryPerson(@PathVariable Integer orderID) {
+	public ResponseEntity<?> assignDeliveryPerson(@Validated @PathVariable Integer orderID) {
 		try {
 			service.assignDeliveryPerson(orderID);
 			

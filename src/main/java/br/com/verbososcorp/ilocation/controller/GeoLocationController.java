@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
@@ -26,7 +27,7 @@ public class GeoLocationController {
 	GeoLocationService service;
 	
 	@PutMapping()
-	public ResponseEntity<?> registerGeoLocation(@RequestBody GeoLocation geoLocation){
+	public ResponseEntity<?> registerGeoLocation(@Validated @RequestBody GeoLocation geoLocation){
 		
 		try {
 			service.register(geoLocation);

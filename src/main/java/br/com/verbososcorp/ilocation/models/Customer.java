@@ -1,9 +1,20 @@
 package br.com.verbososcorp.ilocation.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -14,28 +25,37 @@ public class Customer {
     @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
+    @NotEmpty
     @Column(name = "customer_name", nullable = false, length = 50)
     private String name;
-
+    
+    @CPF
+    @NotEmpty
     @Column(name = "customer_cpf", nullable = false, length = 11)
     private String cpf;
 
+    @Email
+    @NotEmpty
     @Column(name = "customer_email", nullable = false, length = 100)
     private String email;
 
+    @NotEmpty
     @Column(name = "customer_phone", nullable = false, length = 11)
     private String phone;
 
+    @NotEmpty
     @Column(name = "customer_cep", nullable = false, length = 9)
     private String cep;
 
+    @NotEmpty
     @Column(name = "customer_num_res", nullable = false, length = 10)
     private String numRes;
 
     @Column(name = "customer_compl", length = 30)
     private String compl;
 
+    @NotEmpty
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties("customer")
     List<Order> orderGroup;
