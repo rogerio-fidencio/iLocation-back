@@ -44,13 +44,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and()
+        http.csrf().disable().cors()
+        		.and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, BASE_URL + "/login").permitAll()
-                .anyRequest().authenticated();
-
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), deliveryPersonService));
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class).sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
+                .anyRequest().authenticated()
+                .and() 
+                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), deliveryPersonService))
+                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
