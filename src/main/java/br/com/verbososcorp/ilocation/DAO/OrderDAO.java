@@ -11,9 +11,13 @@ import java.util.Optional;
 
 public interface OrderDAO extends CrudRepository<Order, Integer> {
 
-	public List<OrderDTO> getAllByDeliveryPersonId(Integer deliveryPersonID);
+	@Query("select new br.com.verbososcorp.ilocation.DTO.OrderDTO" +
+			"(order.id, order.status, order.deliveryPerson.id)" +
+			" FROM Order as order " +
+			"WHERE order.deliveryPerson.id = :id")
+	public List<OrderDTO> getAllByDeliveryPersonId(@Param("id") Integer deliveryPersonID);
 
-	public List<OrderDTO> getAllByStatus(Integer status);
+
 
 	@Query("select new br.com.verbososcorp.ilocation.DTO.OrderDTO" +
 			"(order.id, order.status, order.deliveryPerson.id)" +
