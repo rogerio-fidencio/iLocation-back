@@ -55,6 +55,9 @@ public class DeliveryPerson {
 		this.orderGroup = new ArrayList<>();
 	}
 
+	public DeliveryPerson() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
