@@ -18,7 +18,6 @@ public class OrderDTO {
 		
 	
 	public OrderDTO() {
-
 	}
 	
 	public OrderDTO(Integer id, Integer status, Integer deliveryPersonId) {
@@ -27,7 +26,8 @@ public class OrderDTO {
 		this.status = status;
 		this.deliveryPersonId = deliveryPersonId;
 	}	
-	
+
+
 
 	public OrderDTO(Integer id, Integer status, Integer deliveryPersonId, LocalDateTime date, Integer customerID,
 			String customerName, String customerCep, String customerNumRes, String customerCompl) {
