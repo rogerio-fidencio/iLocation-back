@@ -20,6 +20,7 @@ import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(BASE_URL + "/geolocation")
 public class GeoLocationController {
 	
