@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="feat/getOpenOrder_getAllOrdersByDelivery">
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" afterDir="false" />
+    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/CorsAndDeliveryPersonConstructor">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix/login_with_cpf_and_email" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -157,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648562197048</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix/CorsAndDeliveryPersonConstructor">
+      <created>1648692358391</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1648692358391</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,6 +186,7 @@
     <MESSAGE value="fix/refatoring try-catch" />
     <MESSAGE value="fix/login_with_cpf_and_email" />
     <MESSAGE value="feat/getOpenOrder_getAllOrdersByDelivery" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat/getOpenOrder_getAllOrdersByDelivery" />
+    <MESSAGE value="fix/CorsAndDeliveryPersonConstructor" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix/CorsAndDeliveryPersonConstructor" />
   </component>
 </project>
