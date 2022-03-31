@@ -6,11 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotAvailableException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.InvalidStatusException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
 
-
+@SpringBootTest
 class OrderServiceTest {
 	
 	@Autowired
@@ -33,6 +34,17 @@ class OrderServiceTest {
 			service.getOrderByID(-1);
 			fail();
 		} catch(OrderNotFoundException e) {
+			Assertions.assertTrue(true);
+		}		
+	}
+	
+	
+	@Test
+	public void shouldReturnInvalidOrderStatus() throws Exception {
+		try {
+			service.getOrderByStatus(4);
+			fail();
+		} catch(InvalidStatusException e) {
 			Assertions.assertTrue(true);
 		}		
 	}

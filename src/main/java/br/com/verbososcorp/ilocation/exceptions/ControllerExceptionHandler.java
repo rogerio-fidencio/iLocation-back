@@ -3,6 +3,7 @@ package br.com.verbososcorp.ilocation.exceptions;
 
 import java.util.Date;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -87,4 +88,16 @@ public class ControllerExceptionHandler {
 
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
+    @ExceptionHandler(JDBCConnectionException.class)
+    public ResponseEntity<ErrorMessage> JDBCConnectionException(JDBCConnectionException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+     
 }

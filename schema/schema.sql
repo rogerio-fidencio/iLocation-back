@@ -17,8 +17,8 @@ create table tb_delivery_person (
   	delivery_person_email varchar(100) not null unique,
   	delivery_person_name varchar(50) not null,
   	delivery_person_cpf varchar(11) not null unique,
-  	delivery_person_password text not null,
-    delivery_person_phone varchar(11) not null
+  	delivery_person_phone varchar(11) not null unique,	
+    delivery_person_password text not null    
 );
 
 create table tb_order (
@@ -40,3 +40,4 @@ create table tb_geolocation(
   	constraint fk_order_geolocation foreign key (order_id) references tb_order(order_id)
 );
 
+CREATE INDEX idx_order_in_progress ON tb_order (order_status) WHERE order_status = 1;
