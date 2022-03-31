@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,7 +45,15 @@ public class DeliveryPerson {
     @JsonIgnoreProperties("deliveryPerson")
     private List<Order> orderGroup;
 
-
+	public DeliveryPerson(String name, String cpf, String email, String phone, String password) {
+		this.id = null;
+		this.name = name;
+		this.cpf = cpf;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.orderGroup = new ArrayList<>();
+	}
 
 	public Integer getId() {
 		return id;
