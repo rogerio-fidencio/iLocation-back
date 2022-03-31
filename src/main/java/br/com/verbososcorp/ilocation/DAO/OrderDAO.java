@@ -20,8 +20,10 @@ public interface OrderDAO extends CrudRepository<Order, Integer> {
 
 
 	@Query("select new br.com.verbososcorp.ilocation.DTO.OrderDTO" +
-			"(order.id, order.status, order.deliveryPerson.id)" +
-			" FROM Order as order " +
+			"(order.id, order.status, order.deliveryPerson.id, " +
+			"order.date, order.customer.id, order.customer.name, order.customer.cep, " +
+			"order.customer.numRes, order.customer.compl) " +
+			"FROM Order as order " +
 			"WHERE order.status = 1 " +
 			"AND order.deliveryPerson.id = :id")
 	public Optional<OrderDTO> getCurrentOrderByDeliveryPersonId(@Param("id") Integer id);
