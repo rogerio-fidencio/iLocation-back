@@ -28,7 +28,6 @@ import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoun
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(BASE_URL + "/order")
 public class OrderController {
 

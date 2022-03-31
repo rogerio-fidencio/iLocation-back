@@ -16,7 +16,6 @@ import br.com.verbososcorp.ilocation.models.Customer;
 import br.com.verbososcorp.ilocation.services.interfaces.CustomerService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(BASE_URL + "/customer")
 public class CustomerController {
 
