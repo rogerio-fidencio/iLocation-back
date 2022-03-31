@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="feat/getOpenOrder_getAllOrdersByDelivery">
-      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/iLocation-back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iLocation-back.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/models/DeliveryPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/models/DeliveryPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +50,7 @@
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
   </component>

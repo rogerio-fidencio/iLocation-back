@@ -18,7 +18,6 @@ import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.services.Impl.DeliveryPersonServiceImpl;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping(BASE_URL + "/deliveryperson")
 public class DeliveryPersonController {
 

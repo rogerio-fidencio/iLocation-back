@@ -69,7 +69,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**")
                     .allowedOrigins("http://localhost:3000") // adicionar url do deploy de front
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+                    .allowedMethods("*")
+                    .allowedHeaders("*")
+                    .allowedOriginPatterns("*");
         }
     }
 }
