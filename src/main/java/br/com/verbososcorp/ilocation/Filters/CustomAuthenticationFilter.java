@@ -67,9 +67,25 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             return authenticationManager.authenticate(authenticationToken);
 
         } catch (IOException e) {
-            throw new BadRequestException("Dados incorretos.");
+            response.setContentType(APPLICATION_JSON_VALUE);
+            response.setStatus(401);
+            ErrorMessage errorMessage = new ErrorMessage(401, new Date(), e.getMessage(), request.getServletPath());
+            try {
+                new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            return null;
         } catch (Exception e){
-            throw new InternalServerErrorException(e.getMessage());
+            response.setContentType(APPLICATION_JSON_VALUE);
+            response.setStatus(500);
+            ErrorMessage errorMessage = new ErrorMessage(500, new Date(), e.getMessage(), request.getServletPath());
+            try {
+                new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            return null;
         }
     }
 
@@ -79,7 +95,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         Algorithm algorithm = getAlgorithm(TOKEN_SENHA);
         String UserDTOJson = new ObjectMapper().writeValueAsString(userDTO);
-        System.out.println(UserDTOJson);
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withClaim("user", UserDTOJson)
