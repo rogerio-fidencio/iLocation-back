@@ -5,6 +5,7 @@ import static br.com.verbososcorp.ilocation.util.Project.getContextData;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -12,13 +13,6 @@ import org.springframework.stereotype.Component;
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DAO.OrderDAO;
 import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotAvailableException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InvalidStatusException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.NoOrderAtributedToDeliveryPersonException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeCancelledException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeConcludedException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotAvailableException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import br.com.verbososcorp.ilocation.models.Order;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
@@ -147,10 +141,21 @@ public class OrderServiceImpl implements OrderService {
         Optional<Order> order = dao.findById(currentOrder.get().getId());
         order.get().setStatus(2);            
         return dao.save(order.get());
-
     }
-    
-    
+
+    @Override
+    public OrderDTO getCurrentOrderByDeliveryPerson() throws DeliveryPersonNotFoundException {
+        Integer deliveryPersonID = getContextData().getId();
+        Optional<OrderDTO> deliveryPerson = dao.getCurrentOrderByDeliveryPersonId(deliveryPersonID);
+
+        if(deliveryPerson.isEmpty()){
+            throw new DeliveryPersonNotFoundException();
+        }
+
+        return deliveryPerson.get();
+    }
+
+
     @Override
     public List<OrderDTO> getAllbyAvailableStatus() {  
         return dao.getOrderByStatus(0);
