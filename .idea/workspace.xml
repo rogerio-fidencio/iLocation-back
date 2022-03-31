@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/refatoring try-catch">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DTO/DeliveryPersonAuthDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonService.java" afterDir="false" />
+    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="feat/getOpenOrder_getAllOrdersByDelivery">
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix/refatoring_imports" />
+        <entry key="$PROJECT_DIR$" value="fix/login_with_cpf_and_email" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +50,7 @@
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
   </component>
@@ -86,7 +79,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
-  <component name="RunManager">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install -U" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.IlocationApplication">
     <configuration name="IlocationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.IlocationApplication" />
       <module name="iLocation-back" />
@@ -100,9 +98,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DeliveryPersonRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="iLocation-back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.verbososcorp.ilocation.Repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.verbososcorp.ilocation.Repository" />
+      <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.Repository.DeliveryPersonRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.IlocationApplication" />
+        <item itemvalue="JUnit.DeliveryPersonRepositoryTest" />
       </list>
     </recent_temporary>
   </component>
@@ -129,7 +143,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648497176623</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix/login_with_cpf_and_email">
+      <created>1648508869403</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648508869403</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat/getOpenOrder_getAllOrdersByDelivery">
+      <created>1648562197048</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1648562197048</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,17 +174,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix/refatoring imports" />
     <MESSAGE value="fix/refatoring try-catch" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix/refatoring try-catch" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/CustomerDAO.java</url>
-          <line>5</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fix/login_with_cpf_and_email" />
+    <MESSAGE value="feat/getOpenOrder_getAllOrdersByDelivery" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/getOpenOrder_getAllOrdersByDelivery" />
   </component>
 </project>
