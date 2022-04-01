@@ -1,6 +1,6 @@
 ### Repositório do projeto completo: https://github.com/Rogerio-Fidencio/iLocation
 
-# 💻 Iniciando a aplicação localmente
+# 💻 Iniciando a aplicação
 
 1 - Crie na sua maquina um banco de dados PostgreSQL usando o seguinte Script
 ```
