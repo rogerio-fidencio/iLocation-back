@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/CorsAndDeliveryPersonConstructor">
+    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="feat/LombokAdded">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/NotionConfigProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/secrets.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Util/DeliveryPersonCreator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/controller/DeliveryPersonControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/iLocation-back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iLocation-back.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/IlocationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/IlocationApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/services/interfaces/OrderServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/services/interfaces/OrderServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,14 +29,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Record" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="fix/RefatoringCode" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,7 +66,7 @@
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -79,24 +92,46 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="br.com.verbososcorp.ilocation.services.interfaces" />
+      <recent name="br.com.verbososcorp.ilocation.controller" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="mvn dependency:resolve -Dclassifier=javadoc" />
       <command value="mvn clean install -U" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.IlocationApplication">
-    <configuration name="IlocationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.IlocationApplication" />
+  <component name="RunManager" selected="JUnit.DeliveryPersonServiceTest">
+    <configuration name="All in iLocation-back" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="iLocation-back" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DeliveryPersonControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="iLocation-back" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.verbososcorp.ilocation.*" />
+          <option name="PATTERN" value="br.com.verbososcorp.ilocation.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="br.com.verbososcorp.ilocation.controller" />
+      <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.controller.DeliveryPersonControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,15 +146,57 @@
       </extension>
       <option name="PACKAGE_NAME" value="br.com.verbososcorp.ilocation.Repository" />
       <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.Repository.DeliveryPersonRepositoryTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DeliveryPersonServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="iLocation-back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.verbososcorp.ilocation.services.interfaces.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.verbososcorp.ilocation.services.interfaces" />
+      <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DeliveryPersonServiceTest.registerReturns_DeliveryPerson_when_sucessful" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="iLocation-back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.verbososcorp.ilocation.services.interfaces.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.verbososcorp.ilocation.services.interfaces" />
+      <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonServiceTest" />
+      <option name="METHOD_NAME" value="registerReturns_DeliveryPerson_when_sucessful" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.DeliveryPersonRepositoryTest" />
+      <item itemvalue="JUnit.DeliveryPersonControllerTest" />
+      <item itemvalue="JUnit.All in iLocation-back" />
+      <item itemvalue="JUnit.DeliveryPersonServiceTest" />
+      <item itemvalue="JUnit.DeliveryPersonServiceTest.registerReturns_DeliveryPerson_when_sucessful" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.IlocationApplication" />
+        <item itemvalue="JUnit.DeliveryPersonServiceTest" />
+        <item itemvalue="JUnit.DeliveryPersonServiceTest.registerReturns_DeliveryPerson_when_sucessful" />
         <item itemvalue="JUnit.DeliveryPersonRepositoryTest" />
+        <item itemvalue="JUnit.All in iLocation-back" />
+        <item itemvalue="JUnit.DeliveryPersonControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -167,8 +244,32 @@
       <option name="project" value="LOCAL" />
       <updated>1648692358391</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix/AddCorsForVercelDeploy">
+      <created>1648770892755</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648770892755</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix/RefatoringCode">
+      <created>1649529840238</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1649529840238</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat/LombokAdded">
+      <created>1649529941168</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1649529941168</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -187,6 +288,28 @@
     <MESSAGE value="fix/login_with_cpf_and_email" />
     <MESSAGE value="feat/getOpenOrder_getAllOrdersByDelivery" />
     <MESSAGE value="fix/CorsAndDeliveryPersonConstructor" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix/CorsAndDeliveryPersonConstructor" />
+    <MESSAGE value="fix/AddCorsForVercelDeploy" />
+    <MESSAGE value="fix/RefatoringCode" />
+    <MESSAGE value="feat/LombokAdded" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat/LombokAdded" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.springframework.security.crypto.bcrypt.BCrypt" memberName="P" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/iLocation_back$All_in_iLocation_back.ic" NAME="All in iLocation-back Coverage Results" MODIFIED="1649440260324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

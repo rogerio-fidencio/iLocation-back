@@ -51,11 +51,10 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
 
     @Override
     public DeliveryPerson register(DeliveryPerson newDeliveryPerson) {
- 
+
         newDeliveryPerson.setPassword(passwordEncoder.encode(newDeliveryPerson.getPassword()));
         
         return dao.save(newDeliveryPerson);
-
     }
     
 
