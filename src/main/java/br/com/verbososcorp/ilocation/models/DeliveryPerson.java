@@ -2,14 +2,22 @@ package br.com.verbososcorp.ilocation.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_delivery_person")
 public class DeliveryPerson {
@@ -43,76 +51,19 @@ public class DeliveryPerson {
 
     @OneToMany(mappedBy = "deliveryPerson")
     @JsonIgnoreProperties("deliveryPerson")
-    private List<Order> orderGroup;
+	@ToString.Exclude
+	private List<Order> orderGroup;
 
-	public DeliveryPerson(String name, String cpf, String email, String phone, String password) {
-		this.id = null;
-		this.name = name;
-		this.cpf = cpf;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.orderGroup = new ArrayList<>();
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		DeliveryPerson that = (DeliveryPerson) o;
+		return id != null && Objects.equals(id, that.id);
 	}
 
-	public DeliveryPerson() {
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public List<Order> getOrderGroup() {
-		return orderGroup;
-	}
-
-	public void setOrderGroup(List<Order> orderGroup) {
-		this.orderGroup = orderGroup;
-	}
-
-
 }
