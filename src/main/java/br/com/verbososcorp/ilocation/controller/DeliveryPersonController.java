@@ -7,6 +7,8 @@ import br.com.verbososcorp.ilocation.DTO.OrderDTO;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotFoundException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.services.Impl.OrderServiceImpl;
+import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
+import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,30 +26,14 @@ import javax.websocket.server.PathParam;
 public class DeliveryPersonController {
 
     @Autowired
-    DeliveryPersonServiceImpl service;
+    DeliveryPersonService service;
 
-    @Autowired
-    OrderServiceImpl orderService;
-
-    @PostMapping()
+    @PutMapping()
     public ResponseEntity<DeliveryPerson> putDeliveryPerson(@Validated @RequestBody DeliveryPerson deliveryPerson){
         try {
-			service.register(deliveryPerson);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-			
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.register(deliveryPerson));
 		} catch (Exception e) {
 			throw new InternalServerErrorException(e.getMessage());
 		}
-    }
-
-    @GetMapping("/currentorder")
-    public ResponseEntity<OrderDTO> getCurrentOrder(){
-        try {
-            return ResponseEntity.ok(orderService.getCurrentOrderByDeliveryPerson());
-        } catch (DeliveryPersonNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
     }
 }
