@@ -10,16 +10,15 @@ import org.springframework.data.repository.query.Param;
 
 public interface GeoLocationDAO extends CrudRepository<GeoLocation, Integer> {
 
-    @Query(  value =
-                "SELECT new br.com.verbososcorp.ilocation.DTO.GeoLocationDTO " +
-                "(geolocation.timestamp, geolocation.longitude, geolocation.latitude) " +
-                "FROM GeoLocation AS geolocation " +
-                "WHERE geolocation.order.id = :id",
-            countQuery =
-                    "SELECT count(*) " +
+    @Query(value =
+            "SELECT new br.com.verbososcorp.ilocation.DTO.GeoLocationDTO " +
+                    "(geolocation.timestamp, geolocation.longitude, geolocation.latitude) " +
                     "FROM GeoLocation AS geolocation " +
                     "WHERE geolocation.order.id = :id",
+            countQuery =
+                    "SELECT count(*) " +
+                            "FROM GeoLocation AS geolocation " +
+                            "WHERE geolocation.order.id = :id",
             nativeQuery = false)
-
-    public Page<GeoLocationDTO> getGeolocationPageByOrderID(@Param("id") Integer id, Pageable page);
+    Page<GeoLocationDTO> getGeolocationPageByOrderID(@Param("id") Integer id, Pageable page);
 }

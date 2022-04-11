@@ -3,19 +3,14 @@ package br.com.verbososcorp.ilocation.Repository;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
-import br.com.verbososcorp.ilocation.Util.DeliveryPersonCreator;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
-import java.net.BindException;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,8 +112,8 @@ public class DeliveryPersonRepositoryTest {
     }
 
     @Test
-    @DisplayName("Save trhow ConstraintValidationException when name is empty")
-    void save_ThrowsCostraintValidationException_WhenNameIsEmpty(){
+    @DisplayName("Save trhow ValidationException when name is empty")
+    void save_ThrowsCostraintValidationException_WhenNameIsEmpty() {
 
         DeliveryPerson deliveryPerson = createDeliveryPersonToBeSaved();
 
@@ -129,8 +124,55 @@ public class DeliveryPersonRepositoryTest {
     }
 
     @Test
+    @DisplayName("Save trhow ValidationException when cpf is empty")
+    void save_ThrowsCostraintValidationException_WhenCPFIsEmpty() {
+
+        DeliveryPerson deliveryPerson = createDeliveryPersonToBeSaved();
+
+        deliveryPerson.setCpf("");
+
+        Assertions.assertThatThrownBy(() -> this.repository.save(deliveryPerson))
+                .isInstanceOf(ValidationException.class);
+    }
+
+    @Test
+    @DisplayName("Save trhow ValidationException when Phone is empty")
+    void save_ThrowsCostraintValidationException_WhenPhoneIsEmpty() {
+
+        DeliveryPerson deliveryPerson = createDeliveryPersonToBeSaved();
+
+        deliveryPerson.setPhone("");
+        Assertions.assertThatThrownBy(() -> this.repository.save(deliveryPerson))
+                .isInstanceOf(ValidationException.class);
+    }
+
+    @Test
+    @DisplayName("Save trhow ValidationException when Email is empty")
+    void save_ThrowsCostraintValidationException_WhenEmaileIsEmpty() {
+
+        DeliveryPerson deliveryPerson = createDeliveryPersonToBeSaved();
+
+        deliveryPerson.setEmail("");
+
+        Assertions.assertThatThrownBy(() -> this.repository.save(deliveryPerson))
+                .isInstanceOf(ValidationException.class);
+    }
+
+    @Test
+    @DisplayName("Save trhow ValidationException when Password is empty")
+    void save_ThrowsCostraintValidationException_WhenPasswordIsEmpty() {
+
+        DeliveryPerson deliveryPerson = createDeliveryPersonToBeSaved();
+
+        deliveryPerson.setPassword("");
+
+        Assertions.assertThatThrownBy(() -> this.repository.save(deliveryPerson))
+                .isInstanceOf(ValidationException.class);
+    }
+
+    @Test
     @DisplayName("Find DeliveryPersonAuthDTO By Email Or Phone returns DeliveryPersonAuthDTO when Sucessful")
-    void findDeliveryPersonAuthDTOByEmailOrPhone_returnsDeliveryPersonAutgDTO_WhenSucessful(){
+    void findDeliveryPersonAuthDTOByEmailOrPhone_returnsDeliveryPersonAutgDTO_WhenSucessful() {
         DeliveryPerson deliveryPersonToBeSaved = createDeliveryPersonToBeSaved();
 
         DeliveryPerson deliveryPersonSaved = this.repository.save(deliveryPersonToBeSaved);

@@ -44,7 +44,7 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
         OrderDTO currentOrderDTO = currentOptionalOrderDTO.get();
 
-        Order currentOrder = (Order) orderDAO.findById(currentOrderDTO.getId()).get();
+        Order currentOrder = orderDAO.findById(currentOrderDTO.getId()).get();
 
         newGeoLocation.setOrder(currentOrder);
 

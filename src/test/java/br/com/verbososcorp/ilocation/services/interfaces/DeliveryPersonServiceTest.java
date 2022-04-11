@@ -2,7 +2,6 @@ package br.com.verbososcorp.ilocation.services.interfaces;
 
 import br.com.verbososcorp.ilocation.DAO.DeliveryPersonDAO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
-import br.com.verbososcorp.ilocation.IlocationApplicationTests;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotFoundException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.models.DeliveryPerson;
@@ -16,11 +15,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -69,8 +64,8 @@ class DeliveryPersonServiceTest {
     }
 
     @Test
-    @DisplayName("LoadByUserName returns DeliveryPersonAuthDTO when NotFound")
-    void findDeliveryPersonAuthDTOByEmailOrPhone_ReturnsDeliveryPersonAuthDTO_WhenNotFound() throws DeliveryPersonNotFoundException {
+    @DisplayName("LoadByUserName throw ResourceNotFoundException when NotFound")
+    void findDeliveryPersonAuthDTOByEmailOrPhone_throwResourceNotFoundException_WhenNotFound() throws DeliveryPersonNotFoundException {
 
         BDDMockito.when(repositoryMocked.findDeliveryPersonAuthDTOByEmailOrPhone(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.empty());
@@ -81,7 +76,7 @@ class DeliveryPersonServiceTest {
 
     @Test
     @DisplayName("Register returns DeliveryPerson when sucessful")
-    void registerReturns_DeliveryPerson_when_sucessful(){
+    void register_Returns_DeliveryPerson_when_sucessful(){
 
         DeliveryPerson deliveryPersonToBeSaved = createDeliveryPersonToBeSaved();
 
