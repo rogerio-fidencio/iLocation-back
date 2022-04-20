@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		.and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, BASE_URL + "/login").permitAll()
+                .antMatchers(HttpMethod.PUT, BASE_URL + "/deliveryperson").permitAll()
                 .anyRequest().authenticated()
                 .and() 
                 .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), deliveryPersonService))

@@ -4,26 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="feat/(In-Progress)Ambient-Variables">
+    <list default="true" id="ec01b77a-eadc-4a0a-b8bf-26aa595e6b5d" name="Changes" comment="fix/Refatoring code and exceptions">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DTO/LoginResponseDTO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/IntegrationTests/DeliveryPersonIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/iLocation-back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iLocation-back.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/IntegrationTests/OrdersIT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Util/TOKEN.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/DeliveryPersonDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/GeoLocationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/GeoLocationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DAO/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DTO/DeliveryPersonAuthDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/DTO/DeliveryPersonAuthDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/DeliveryPersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/DeliveryPersonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/GeoLocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/controller/GeoLocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/ControllerExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/customExceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/exceptions/customExceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/Filters/CustomAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/security/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/DeliveryPersonServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/GeoLocationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/Impl/GeoLocationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/verbososcorp/ilocation/services/interfaces/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/Repository/DeliveryPersonRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/br/com/verbososcorp/ilocation/services/interfaces/DeliveryPersonServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/Test_Controller_DAO_Service_forDeliveryPerson" />
+        <entry key="$PROJECT_DIR$" value="feat/(In_progress)_Ambient-Variables" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -82,6 +72,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="useMavenConfig" value="true" />
+        <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -118,7 +109,7 @@
       <command value="mvn clean install -U" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.IlocationApplication">
+  <component name="RunManager" selected="JUnit.DeliveryPersonIT">
     <configuration name="IlocationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.verbososcorp.ilocation.IlocationApplication" />
       <module name="iLocation-back" />
@@ -195,16 +186,16 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.IlocationApplication" />
       <item itemvalue="JUnit.DeliveryPersonRepositoryTest" />
       <item itemvalue="JUnit.DeliveryPersonServiceTest" />
       <item itemvalue="JUnit.DeliveryPersonServiceTest.registerReturns_DeliveryPerson_when_sucessful" />
-      <item itemvalue="Application.IlocationApplication" />
       <item itemvalue="JUnit.DeliveryPersonIT" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.IlocationApplication" />
         <item itemvalue="JUnit.DeliveryPersonIT" />
+        <item itemvalue="Application.IlocationApplication" />
         <item itemvalue="JUnit.DeliveryPersonRepositoryTest" />
         <item itemvalue="JUnit.DeliveryPersonServiceTest" />
         <item itemvalue="JUnit.DeliveryPersonServiceTest.registerReturns_DeliveryPerson_when_sucessful" />
@@ -290,11 +281,20 @@
       <option name="project" value="LOCAL" />
       <updated>1649530388553</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fix/Refatoring code and exceptions">
+      <created>1649718950538</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1649718950538</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate:hibernate-core" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -318,7 +318,8 @@
     <MESSAGE value="feat/LombokAdded" />
     <MESSAGE value="feat/Test_Controller_DAO_Service_forDeliveryPerson" />
     <MESSAGE value="feat/(In-Progress)Ambient-Variables" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat/(In-Progress)Ambient-Variables" />
+    <MESSAGE value="fix/Refatoring code and exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix/Refatoring code and exceptions" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

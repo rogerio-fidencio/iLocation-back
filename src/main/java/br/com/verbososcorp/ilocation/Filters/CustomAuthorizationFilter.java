@@ -10,6 +10,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,16 +32,29 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        System.out.println(request.getMethod());
+
         if (request.getServletPath().equals(Project.BASE_URL + "/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if ( request.getServletPath().equals(Project.BASE_URL + "/deliveryperson")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String authorizationHeader = request.getHeader(AUTHORIZATION);
+
+
         if (authorizationHeader == null || !authorizationHeader.startsWith(CustomAuthenticationFilter.ATRIBUTO_PREFIXO)) {
 
-            ErrorMessage errorMessage = new ErrorMessage(403, new Date(), "Requisição sem autorização.", request.getServletPath());
+            ErrorMessage errorMessage = new ErrorMessage(
+                    403, new Date(),
+                    "Requisição sem autorização.",
+                    request.getServletPath());
+
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(403);
 
@@ -60,7 +74,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
             String email = decodedJWT.getSubject();
 
-            Claim user =decodedJWT.getClaim ("user");
+            Claim user = decodedJWT.getClaim ("user");
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user , null, new ArrayList<>());
 

@@ -48,7 +48,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         return new User(user.getEmailOrPhone(), user.getPassword(), new ArrayList<>());
     }
 
-
     @Override
     public DeliveryPerson register(DeliveryPerson newDeliveryPerson) {
 
@@ -56,7 +55,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         
         return dao.save(newDeliveryPerson);
     }
-    
 
     @Override
     public DeliveryPerson getByEmail(String email) throws DeliveryPersonNotFoundException {
@@ -74,7 +72,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
             return (List<DeliveryPerson>) dao.findAll();
 
     }
-    
 
     @Override
     public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrPhone(String emailOrPhone) throws DeliveryPersonNotFoundException {
