@@ -4,6 +4,7 @@ import static br.com.verbososcorp.ilocation.util.Project.BASE_URL;
 
 import java.util.List;
 
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,16 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.verbososcorp.ilocation.DTO.OrderDTO;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotAvailableException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.InvalidStatusException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.NoOrderAtributedToDeliveryPersonException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeCancelledException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderCannotBeConcludedException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotAvailableException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.OrderNotFoundException;
-import br.com.verbososcorp.ilocation.exceptions.customExceptions.ResourceNotFoundException;
 import br.com.verbososcorp.ilocation.services.interfaces.OrderService;
 
 @RestController
@@ -141,7 +132,6 @@ public class OrderController {
 		
 	}
 
-
 	
 	@GetMapping("/currentDeliveryPerson")
 	public ResponseEntity<List<OrderDTO>> getAllByDeliveryPerson(){
@@ -153,6 +143,16 @@ public class OrderController {
 			throw new InternalServerErrorException(e.getMessage());
 		}
 	}
-	
-		
+
+	@GetMapping("/currentOrder")
+	public ResponseEntity<OrderDTO> getCurrentOrder(){
+		try {
+			return ResponseEntity.ok(service.getCurrentOrderByDeliveryPerson());
+		} catch (DeliveryPersonNotFoundException e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e.getMessage());
+		}
+	}
+
 }
