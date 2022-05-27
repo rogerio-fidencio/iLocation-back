@@ -4,6 +4,7 @@ import br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO;
 import br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO;
 import br.com.verbososcorp.ilocation.exceptions.ErrorMessage;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.BadRequestException;
+import br.com.verbososcorp.ilocation.exceptions.customExceptions.DeliveryPersonNotFoundException;
 import br.com.verbososcorp.ilocation.exceptions.customExceptions.InternalServerErrorException;
 import br.com.verbososcorp.ilocation.services.interfaces.DeliveryPersonService;
 import br.com.verbososcorp.ilocation.util.Project;
@@ -11,6 +12,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -57,7 +59,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         try{
             DeliveryPersonAuthDTO user = new ObjectMapper().readValue(request.getInputStream(), DeliveryPersonAuthDTO.class);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmailOrPhone(), user.getPassword());
@@ -66,10 +68,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
             return authenticationManager.authenticate(authenticationToken);
 
-        } catch (IOException e) {
+        } catch (IOException | DeliveryPersonNotFoundException | AuthenticationException e) {
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(401);
-            ErrorMessage errorMessage = new ErrorMessage(401, new Date(), e.getMessage(), request.getServletPath());
+            ErrorMessage errorMessage = new ErrorMessage(401, new Date(), "Dados Invalidos.", request.getServletPath());
             try {
                 new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
             } catch (IOException ex) {
@@ -79,6 +81,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         } catch (Exception e){
             response.setContentType(APPLICATION_JSON_VALUE);
             response.setStatus(500);
+            e.printStackTrace();
             ErrorMessage errorMessage = new ErrorMessage(500, new Date(), e.getMessage(), request.getServletPath());
             try {
                 new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
@@ -118,13 +121,5 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         String responseObject = new ObjectMapper().writeValueAsString(tokens);
         response.getWriter().write(responseObject);
-    }
-
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        ErrorMessage errorMessage = new ErrorMessage(401, new Date(), "Dados incorretos.", request.getServletPath());
-        response.setContentType(APPLICATION_JSON_VALUE);
-        response.setStatus(401);
-        new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
     }
 }

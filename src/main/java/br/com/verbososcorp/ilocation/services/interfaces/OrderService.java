@@ -9,21 +9,21 @@ import java.util.List;
 
 public interface OrderService {
 	
-	public List<OrderDTO> getAll();
-	
-	public OrderDTO getOrderByID(Integer id) throws OrderNotFoundException;
+	List<OrderDTO> getAll();
 
-	public List<OrderDTO> getOrderByStatus(Integer status) throws InvalidStatusException;
-	
-	public Order assignDeliveryPerson(Integer orderID) throws DeliveryPersonNotAvailableException, OrderNotFoundException, OrderNotAvailableException;	
-	
-	public Order changeStatusToCancelled() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeCancelledException;
-	
-	public Order changeStatusToDelivered() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeConcludedException;
+	OrderDTO getOrderByID(Integer id) throws OrderNotFoundException;
 
-	public OrderDTO getCurrentOrderByDeliveryPerson() throws DeliveryPersonNotFoundException;
+	List<OrderDTO> getOrderByStatus(Integer status) throws InvalidStatusException;
 
-	public List<OrderDTO> getAllByDeliveryPerson();
+	Order assignDeliveryPerson(Integer orderID) throws DeliveryPersonNotAvailableException, OrderNotFoundException, OrderNotAvailableException;
 
-	public List<OrderDTO> getAllbyAvailableStatus();
+	Order changeStatusToCancelled() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeCancelledException;
+
+	Order changeStatusToDelivered() throws NoOrderAtributedToDeliveryPersonException, OrderCannotBeConcludedException;
+
+	OrderDTO getCurrentOrderByDeliveryPerson() throws DeliveryPersonNotFoundException;
+
+	List<OrderDTO> getAllByDeliveryPerson();
+
+	List<OrderDTO> getAllbyAvailableStatus();
 }

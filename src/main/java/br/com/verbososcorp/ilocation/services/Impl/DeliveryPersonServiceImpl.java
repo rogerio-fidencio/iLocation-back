@@ -48,7 +48,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         return new User(user.getEmailOrPhone(), user.getPassword(), new ArrayList<>());
     }
 
-
     @Override
     public DeliveryPerson register(DeliveryPerson newDeliveryPerson) {
 
@@ -56,58 +55,36 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService, UserDet
         
         return dao.save(newDeliveryPerson);
     }
-    
 
     @Override
-    public DeliveryPerson getByEmail(String email) {
-        try {
+    public DeliveryPerson getByEmail(String email) throws DeliveryPersonNotFoundException {
             Optional<DeliveryPerson> deliveryPersonOptional = dao.findByEmail(email);
 
             if (deliveryPersonOptional.isEmpty()) {
-                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+                throw new DeliveryPersonNotFoundException();
             }
 
             return deliveryPersonOptional.get();
-
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
     }
 
     @Override
     public List<DeliveryPerson> getAll() {
-
-        try {
             return (List<DeliveryPerson>) dao.findAll();
 
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
     }
-    
 
     @Override
-    public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrPhone(String emailOrPhone) {
-    	//TODO revisar os catches.
-        try {
+    public DeliveryPersonDTO findDeliveryPersonDTOByEmailOrPhone(String emailOrPhone) throws DeliveryPersonNotFoundException {
+
             Optional<DeliveryPersonDTO> deliveryPersonOptional = dao.findDeliveryPersonDTOByEmailOrPhone(emailOrPhone);
             if (deliveryPersonOptional.isEmpty()) {
-                throw new ResourceNotFoundException("Pessoa entregadora não encontrada!");
+                throw new DeliveryPersonNotFoundException();
             }
 
             DeliveryPersonDTO deliveryPerson = deliveryPersonOptional.get();
 
             return new DeliveryPersonDTO(deliveryPerson.getId(), deliveryPerson.getName(), deliveryPerson.getPhone());
 
-        } catch (ResourceNotFoundException e) {
-            throw new ResourceNotFoundException(e.getMessage());
-
-        } catch (Exception e) {
-            throw new InternalServerErrorException(e.getMessage());
-        }
     }
 
 }

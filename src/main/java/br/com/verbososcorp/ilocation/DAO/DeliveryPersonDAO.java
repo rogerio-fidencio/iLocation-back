@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface DeliveryPersonDAO extends CrudRepository<DeliveryPerson, Integer> {
 
-    public Optional<DeliveryPerson> findByEmail(String email);
+    Optional<DeliveryPerson> findByEmail(String email);
 
 
     @Query("SELECT new br.com.verbososcorp.ilocation.DTO.DeliveryPersonAuthDTO " +
@@ -19,12 +19,12 @@ public interface DeliveryPersonDAO extends CrudRepository<DeliveryPerson, Intege
             "FROM DeliveryPerson as deliveryPerson " +
             "WHERE deliveryPerson.email = :emailOrPhone " +
             "OR deliveryPerson.phone = :emailOrPhone")
-    public Optional<DeliveryPersonAuthDTO> findDeliveryPersonAuthDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
+    Optional<DeliveryPersonAuthDTO> findDeliveryPersonAuthDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
 
     @Query("SELECT new br.com.verbososcorp.ilocation.DTO.DeliveryPersonDTO " +
             "(deliveryPerson.id, deliveryPerson.name, deliveryPerson.phone) " +
             "FROM DeliveryPerson as deliveryPerson " +
             "WHERE deliveryPerson.email = :emailOrPhone " +
             "OR deliveryPerson.phone = :emailOrPhone")
-    public Optional<DeliveryPersonDTO> findDeliveryPersonDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
+    Optional<DeliveryPersonDTO> findDeliveryPersonDTOByEmailOrPhone(@Param("emailOrPhone") String emailOrPhone);
 }
